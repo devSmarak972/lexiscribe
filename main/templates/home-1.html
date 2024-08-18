@@ -375,7 +375,7 @@
                                                                <div class="elementor-element elementor-element-62d93d9 center wdt-custom-grid-box-style-1 center elementor-widget elementor-widget-wdt-image-box" data-id="62d93d9" data-element_type="widget" data-widget_type="wdt-image-box.default">
                                                                   <div class="elementor-widget-container">
                                                                      <div class="wdt-image-box-holder wdt-content-item-holder wdt-column-holder wdt-rc-template-custom-template" id="wdt-image-box-62d93d9">
-                                                                        <div class="wdt-content-item lang-box active" id="english-item">
+                                                                        <div class="wdt-content-item lang-box {% if language == 'English' %}active{% endif %}" data-value="English" id="english-item">
                                                                            <div class="wdt-content-media-group">
                                                                               <div class="wdt-content-elements-group wdt-media-group wdt-media-image-cover">
                                                                                  <div class="wdt-content-image-wrapper ">
@@ -409,7 +409,7 @@
                                                                <div class="elementor-element elementor-element-da2a5f0 center wdt-custom-grid-box-style-1 center elementor-widget elementor-widget-wdt-image-box" data-id="da2a5f0" data-element_type="widget" data-widget_type="wdt-image-box.default">
                                                                   <div class="elementor-widget-container">
                                                                      <div class="wdt-image-box-holder wdt-content-item-holder wdt-column-holder wdt-rc-template-custom-template" id="wdt-image-box-da2a5f0">
-                                                                        <div class="wdt-content-item lang-box" id="bengali-item">
+                                                                        <div class="wdt-content-item lang-box {% if language == 'Bengali' %}active{% endif %}" data-value="Bengali" id="bengali-item">
                                                                            <div class="wdt-content-media-group">
                                                                               <div class="wdt-content-elements-group wdt-media-group wdt-media-image-cover">
                                                                                  <div class="wdt-content-image-wrapper ">
@@ -443,7 +443,7 @@
                                                                <div class="elementor-element elementor-element-05cd4dd center wdt-custom-grid-box-style-1 center elementor-widget elementor-widget-wdt-image-box" data-id="05cd4dd" data-element_type="widget" data-widget_type="wdt-image-box.default">
                                                                   <div class="elementor-widget-container">
                                                                      <div class="wdt-image-box-holder wdt-content-item-holder wdt-column-holder wdt-rc-template-custom-template" id="wdt-image-box-05cd4dd">
-                                                                        <div class="wdt-content-item lang-box" id="hindi-item">
+                                                                        <div class="wdt-content-item lang-box {% if language == 'Hindi' %}active{% endif %}" data-value="Hindi" id="hindi-item">
                                                                            <div class="wdt-content-media-group">
                                                                               <div class="wdt-content-elements-group wdt-media-group wdt-media-image-cover">
                                                                                  <div class="wdt-content-image-wrapper ">
@@ -509,21 +509,40 @@
                                                    </div>
                                                 </div>
                                              </section>
+                                             <form method="POST" style="width:100%"  enctype="multipart/form-data">
+                                                {% csrf_token %}
+
                                              <section class="elementor-section elementor-inner-section elementor-element elementor-element-3c23cfa elementor-section-full_width elementor-section-height-default elementor-section-height-default">
                                                 
+                                                <div class="relative my-4 mx-auto text-center md:text-left" style="z-index:10" >
+                                                   <!-- Dropdown Button -->
+                                                   <button id="dropdownButton" class="text-white px-4 py-2 rounded-md focus:outline-none">
+                                                       Language 
+                                                       <span id="selected-lang" class="mx-2 ms-4 p-2 bg-primary-color text-white text-xs rounded-xl">{{language}}</span>
+                                                       <img src="{% static 'images/arrow-down.png' %}"/>
+                                                   </button>
+                                           
+                                                   <!-- Dropdown Menu -->
+                                                   <div id="dropdownMenu" class="absolute mt-2 w-48 bg-white border rounded-md shadow-lg hidden">
+                                                       <div class="english lang-option flex px-4 py-2 text-gray-800  space-between {% if language == 'English' %}active{% endif %}" data-value="English">English <img src="{% static 'images/english.png' %}"/></div>
+                                                       <div class="bengali lang-option flex px-4 py-2 text-gray-800 space-between {% if language == 'Bengali' %}active{% endif %}" data-value="Bengali">Bengali <img src="{% static 'images/bangla.png' %}"/></div>
+                                                       <div class="hindi lang-option flex px-4 py-2 text-gray-800 space-between {% if language == 'Hindi' %}active{% endif %}" data-value="Hindi">Hindi <img src="{% static 'images/hindi.png' %}"/></div>
+                                                      </div>
+                                                      <input type="text" value="English" id="lang_form" name="language" style="display:None;visibility:hidden" />
+                                               </div>
                                                 <div class=" w-full flex items-center space-x-4 justify-center">
+                                                   <input type="text" value="1" id="model_form" name="model" style="display:None;visibility:hidden" />
                                                    <!-- Left Arrow -->
                                                    <button class="bg-secondary hover:text-gray-700 focus:outline-none" id="left-arrow">
                                                       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
                                                       </svg>
                                                    </button>
-
                                                    <!-- Tabs Container -->
                                                    <div class="flex overflow-x-auto hide-scroll-bar space-x-4" id="model_select">
-                                                      <button class="px-4 py-2 whitespace-nowrap active text-white rounded-lg">Llama 3</button>
-                                                      <button class="px-4 py-2 whitespace-nowrap rounded-lg">Mistral</button>
-                                                      <button class="px-4 py-2 whitespace-nowrap  rounded-lg">OpenHathi</button>
+                                                      <button class="model-form px-4 py-2 whitespace-nowrap {% if model == 1 %}active{% endif %} text-white rounded-lg" data-model="1">Llama 3</button>
+                                                      <button class="model-form px-4 py-2 whitespace-nowrap {% if model == 2 %}active{% endif %} rounded-lg" data-model="2">Mistral</button>
+                                                      {% comment %} <button class="model-form px-4 py-2 whitespace-nowrap {% if model == 3 %}active{% endif %} rounded-lg" data-model="3">OpenHathi</button> {% endcomment %}
                                                       
                                                       <!-- Add as many tabs as needed -->
                                                    </div>
@@ -542,21 +561,27 @@
                                                    <label for="file-upload" class="" id="file-label">
                                                      Upload File
                                                    </label>
-                                                   <div class="flex-1 bg-white mb-4 mt-4 ms-2 text-gray-400 p-3" id="filename">Upload a Legal Document</div>
+                                                   <div class="flex-1 bg-white mb-4 mt-4 ms-2 text-gray-400 p-3" name="filename" id="filename">{% if file_uploaded %}{{file_uploaded}}{% else %}Upload a legal document{% endif %}</div>
 
-                                                   <input type="file" id="file-upload" hidden/>                                           
+                                                   <input type="file" name="file_input" id="file-upload" hidden/>                                           
                                                 </div>
                                              </section>
-                                             <section class="elementor-section elementor-inner-section elementor-element elementor-element-3c23cfa elementor-section-full_width elementor-section-height-default elementor-section-height-default animated fadeInRight" data-id="3c23cfa" data-element_type="section">
+                                             <section id="error-section" class="bg-white text-red-600 py-2 w-1/3 my-3 mx-auto text-center" style="display:{% if error %}block{% else %}none{% endif %}">
+                                                <div class="error">{% if error %}{{error}}{% endif %}</div>
+                                             </section>
+                                             <section id="text-input" class="elementor-section elementor-inner-section elementor-element elementor-element-3c23cfa elementor-section-full_width elementor-section-height-default elementor-section-height-default animated fadeInRight" data-id="3c23cfa" data-element_type="section">
                                                 <div class="flex flex-wrap md:flex-nowrap gap-2">
                                                    <div id="input" class="input-section w-full md:w-1/2 mx-2 mb-2">
-                                                      <textarea class="text-gray-500 w-full p-3 h-60" placeholder="Enter the input text" rows="10"></textarea>
+                                                      <textarea class="text-gray-500 w-full p-3 h-60" placeholder="Enter the input text" rows="10" name="input_text" id="input_text">{{input}}</textarea>
                                                    </div>
                                                    <div  id="output" class="input-section w-full md:w-1/2 mx-2">
-                                                      <textarea class="text-gray-500 w-full p-3 h-60" placeholder="Output appears here"></textarea>
+                                                      <div class="test"></div>
+                                                      <textarea class="text-gray-500 w-full p-3 h-60" placeholder="Output appears here" name="output_text" id="output_text" readonly style="overflow:auto">{% if output %}{{output}}{% else %}Output appears here{% endif %}</textarea>
                                                    </div>
                                                 </div>
                                              </section>
+                                             <button  type="submit" class="submit-btn px-4 py-2 whitespace-nowrap active text-white rounded-lg my-2">Submit</button>
+                                          </form>
                                           </div>
                                        </div>
                                     </div>
@@ -607,64 +632,14 @@
                                                                      <div class="elementor-widget-container">
                                                                         <ul class="elementor-icon-list-items">
                                                                            <li class="elementor-icon-list-item"  style="display:block">
-                                                                              <p class="elementor-icon-list-text">Professor Saptarshi Ghosh</p>
+                                                                              <p class="elementor-icon-list-text">BTP Project</p>
                                                                            <p class="elementor-icon-list-text">Department of Computer Science and Engineering</p>
+                                                                           <p class="elementor-icon-list-text">2024</p>
                                                                            </li>
                                                                         </ul>
                                                                      </div>
                                                                   </div>
-                                                                  <div class="elementor-element elementor-element-cbf1879 elementor-list-item-link-inline elementor-widget__width-initial elementor-tablet-align-left elementor-mobile_extra-align-left elementor-icon-list--layout-inline elementor-widget-tablet__width-inherit elementor-widget elementor-widget-icon-list" data-id="cbf1879" data-element_type="widget"  data-widget_type="icon-list.default">
-                                                                     <div class="elementor-widget-container">
-                                                                        <ul class="elementor-icon-list-items elementor-inline-items">
-                                                                           <li class="elementor-icon-list-item elementor-inline-item">
-                                                                              <span class="elementor-icon-list-text">M :</span>
-                                                                           </li>
-                                                                           <li class="elementor-icon-list-item elementor-inline-item">
-                                                                              <a href="mailto:%20info@example.com">
-                                                                              <span class="elementor-icon-list-text">info@example.com</span>
-                                                                              </a>
-                                                                           </li>
-                                                                        </ul>
-                                                                     </div>
-                                                                  </div>
-                                                                  <div class="elementor-element elementor-element-21dc659 elementor-list-item-link-inline elementor-widget__width-initial elementor-tablet-align-left elementor-mobile_extra-align-left elementor-icon-list--layout-inline elementor-widget-tablet__width-inherit elementor-widget elementor-widget-icon-list" data-id="21dc659" data-element_type="widget"  data-widget_type="icon-list.default">
-                                                                     <div class="elementor-widget-container">
-                                                                        <ul class="elementor-icon-list-items elementor-inline-items">
-                                                                           <li class="elementor-icon-list-item elementor-inline-item">
-                                                                              <span class="elementor-icon-list-text">P :</span>
-                                                                           </li>
-                                                                           <li class="elementor-icon-list-item elementor-inline-item">
-                                                                              <a href="tel:000123456789">
-                                                                              <span class="elementor-icon-list-text">+000 - 123 - 456789</span>
-                                                                              </a>
-                                                                           </li>
-                                                                        </ul>
-                                                                     </div>
-                                                                  </div>
-                                                                  <div class="elementor-element elementor-element-4788b9f elementor-icon-list--layout-inline elementor-list-item-link-inline elementor-widget__width-inherit wdt-custom-header-icon-list-style-02 not-devider-style elementor-widget elementor-widget-icon-list" data-id="4788b9f" data-element_type="widget"  data-widget_type="icon-list.default">
-                                                                     <div class="elementor-widget-container">
-                                                                        <ul class="elementor-icon-list-items elementor-inline-items">
-                                                                           <li class="elementor-icon-list-item elementor-inline-item">
-                                                                              <span class="elementor-icon-list-text">S :</span>
-                                                                           </li>
-                                                                           <li class="elementor-icon-list-item elementor-inline-item">
-                                                                              <a href="#">
-                                                                              <span class="elementor-icon-list-text">Fb.</span>
-                                                                              </a>
-                                                                           </li>
-                                                                           <li class="elementor-icon-list-item elementor-inline-item">
-                                                                              <a href="#">
-                                                                              <span class="elementor-icon-list-text">Be.</span>
-                                                                              </a>
-                                                                           </li>
-                                                                           <li class="elementor-icon-list-item elementor-inline-item">
-                                                                              <a href="#">
-                                                                              <span class="elementor-icon-list-text">Yt.</span>
-                                                                              </a>
-                                                                           </li>
-                                                                        </ul>
-                                                                     </div>
-                                                                  </div>
+                                                                
                                                                </div>
                                                             </div>
                                                          </div>
@@ -2101,9 +2076,17 @@ all.forEach(div => {
        console.log('Clicked on:', event.currentTarget.id);
        all.forEach((e)=>{
           e.classList.remove("active");
-       })
-       event.currentTarget.classList.add("active");
-       // Prevent event from propagating to child elements
+         })
+         document.querySelectorAll(".lang-option").forEach((obj)=>{
+            if(obj.dataset.value==event.currentTarget.dataset.value)
+            obj.classList.add("active");
+            else
+            obj.classList.remove("active");
+            
+         })
+         document.querySelector("#selected-lang").innerText=event.currentTarget.dataset.value;
+         event.currentTarget.classList.add("active");
+         // Prevent event from propagating to child elements
        event.stopPropagation();
    });
 });
@@ -2113,11 +2096,15 @@ console.log(all_models)
 all_models.forEach(div => {
    div.addEventListener('click', (event) => {
       // Determine which div was clicked
-      console.log('Clicked on:', event.currentTarget.id);
+      event.preventDefault();
       all_models.forEach((e)=>{
          e.classList.remove("active");
       })
       event.currentTarget.classList.add("active");
+     
+      document.querySelector("#model_form").value=event.currentTarget.dataset.model;
+      console.log("clicked on: ",event.currentTarget.innerText);
+   
       // Prevent event from propagating to child elements
       event.stopPropagation();
    });
@@ -2130,6 +2117,58 @@ upload.addEventListener("change",(event)=>{
       const filename=document.querySelector("#filename").innerText=event.target.files[0].name;
    }
 })
+
+</script>
+{% if form_submitted %}
+<script>
+    // Scroll to the section after the form is submitted
+    //window.location.hash = 'text-input';
+    
+      document.addEventListener('DOMContentLoaded', () => {
+//         window.scrollTo(0, 500);
+          // Scroll to a specific position (x: 0, y: 500 pixels)
+          document.getElementById('text-input').scrollIntoView({ behavior: 'smooth' });
+      });
+  
+</script>
+{% endif %}
+<script>
+   // Toggle the dropdown menu
+   const dropdownButton = document.getElementById('dropdownButton');
+   const dropdownMenu = document.getElementById('dropdownMenu');
+
+   dropdownButton.addEventListener('click', (e) => {
+      e.preventDefault();
+      dropdownMenu.classList.toggle('hidden');
+   });
+   
+   // Close dropdown if clicked outside
+   window.addEventListener('click', (e) => {
+       if (!dropdownButton.contains(e.target)) {
+           dropdownMenu.classList.add('hidden');
+       }
+       document.querySelector("#error-section").style.display="None";
+   });
+</script>
+<script>
+   document.querySelectorAll(".lang-option").forEach((e)=>{
+      e.addEventListener("click",(event)=>{
+         document.querySelectorAll(".lang-option").forEach((obj)=>{
+            obj.classList.remove("active");
+         })
+        all.forEach((obj)=>{
+            if(obj.dataset.value==event.currentTarget.dataset.value)
+            obj.classList.add("active");
+            else
+            obj.classList.remove("active");
+   
+         });
+         event.currentTarget.classList.add("active");
+         document.querySelector("#lang_form").value=event.currentTarget.dataset.value;
+         console.log("clicked on: ",event.currentTarget.dataset.value);
+         document.querySelector("#selected-lang").innerText=event.currentTarget.dataset.value;
+      })
+   });
 
 </script>
 </html>
