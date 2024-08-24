@@ -124,6 +124,6 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 import os
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
-GROQ_API_KEY = '<api_key>'
+GROQ_API_KEY = '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'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'

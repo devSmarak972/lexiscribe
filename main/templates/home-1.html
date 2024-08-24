@@ -267,12 +267,13 @@
                                     <div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-3ea8895" data-id="3ea8895" data-element_type="column">
                                        <div class="elementor-column-wrap elementor-element-populated">
                                           <div class="elementor-widget-wrap">
-                                             <div class="elementor-element elementor-element-b2407b6 elementor-widget__width-auto elementor-absolute elementor-hidden-tablet elementor-hidden-mobile_extra elementor-hidden-mobile wdt-cus-video-banner-icon elementor-widget elementor-widget-wdt-popup-box" data-id="b2407b6" data-element_type="widget" data-widget_type="wdt-popup-box.default">
+
+                                             <div class="none md:block elementor-element elementor-element-b2407b6 elementor-widget__width-auto elementor-absolute elementor-hidden-tablet elementor-hidden-mobile_extra elementor-hidden-mobile wdt-cus-video-banner-icon elementor-widget elementor-widget-wdt-popup-box" data-id="b2407b6" data-element_type="widget" data-widget_type="wdt-popup-box.default">
                                                 <div class="elementor-widget-container">
                                                    <div class="wdt-popup-box-trigger-holder wdt-click-element-icon" id="wdt-popup-box-trigger-b2407b6">
                                                       <div class="wdt-popup-box-trigger-element">
                                                          <span class="wdt-popup-box-trigger-item wdt-popup-box-trigger-icon">
-                                                            <a href="#language"><img src="{% static 'images/down.png' %}" class="down-arrow"/></a>
+                                                            <a href="#inference"><img src="{% static 'images/down.png' %}" class="down-arrow"/></a>
                                                          </span>
                                                       </div>
                                                    </div>
@@ -319,6 +320,7 @@
                                  </div>
                               </div>
                            </section>
+                           {% comment %}
                            <section id="language" class="elementor-section elementor-top-section elementor-element elementor-element-e336521 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="e336521" data-element_type="section">
                               <div class="elementor-container elementor-column-gap-no">
                                  <div class="elementor-row  lang-section">
@@ -341,7 +343,6 @@
                                                                   <div class="elementor-widget-container">
                                                                      <div class="wdt-heading-holder " id="wdt-heading-8bb9ca4">
                                                                         <div class="wdt-heading-subtitle-wrapper wdt-heading-align-center "><span class="wdt-heading-subtitle">Language Selection</span></div>
-                                                                        {% comment %} <h2 class="wdt-heading-title-wrapper wdt-heading-align-center wdt-heading-deco-wrapper"><span class="wdt-heading-title">We <span class="wdt-split-heading-wrapper"><span class="wdt-split-heading-title" style="animation-delay: 50ms;">E</span><span class="wdt-split-heading-title" style="animation-delay: 100ms;">x</span><span class="wdt-split-heading-title" style="animation-delay: 150ms;">p</span><span class="wdt-split-heading-title" style="animation-delay: 200ms;">e</span><span class="wdt-split-heading-title" style="animation-delay: 250ms;">r</span><span class="wdt-split-heading-title" style="animation-delay: 300ms;">t</span><span class="wdt-split-heading-title" style="animation-delay: 350ms;">i</span><span class="wdt-split-heading-title" style="animation-delay: 400ms;">s</span><span class="wdt-split-heading-title" style="animation-delay: 450ms;">e</span></span>On</span></h2> {% endcomment %}
                                                                         <div class="wdt-heading-content-wrapper">
                                                                            In our research on legal text summarization and translation, we prioritize making legal information accessible across diverse linguistic groups. Currently, our focus includes several major Indian languages to enhance the inclusivity and effectiveness of our models. We are actively working on legal text summarization and translation in Bengali, Hindi, and English. 
                                                                         </div>
@@ -386,7 +387,6 @@
                                                                                     <div class="wdt-content-title">
                                                                                        <h5><span href="" target="" rel="nofollow">English</span></h5>
                                                                                     </div>
-                                                                                    {% comment %} <div class="wdt-content-subtitle">(2459 Case Solved)</div> {% endcomment %}
                                                                                  </div>
                                                                               </div>
                                                                            </div>
@@ -420,7 +420,6 @@
                                                                                     <div class="wdt-content-title">
                                                                                        <h5><span>Bengali</span></h5>
                                                                                     </div>
-                                                                                    {% comment %} <div class="wdt-content-subtitle">(6809 Case Solved)</div> {% endcomment %}
                                                                                  </div>
                                                                               </div>
                                                                            </div>
@@ -454,7 +453,6 @@
                                                                                     <div class="wdt-content-title">
                                                                                        <h5><span>Hindi</span></h5>
                                                                                     </div>
-                                                                                    {% comment %} <div class="wdt-content-subtitle">(9460 Case Solved)</div> {% endcomment %}
                                                                                  </div>
                                                                               </div>
                                                                            </div>
@@ -476,6 +474,8 @@
                                  </div>
                               </div>
                            </section>
+
+                           {% endcomment %}
                            <section id="inference" class="elementor-section elementor-top-section elementor-element elementor-element-532aac6 elementor-section-full_width wdt-dark-bg elementor-section-height-default elementor-section-height-default animated fadeIn" data-id="532aac6" data-element_type="section">
                               <div class="elementor-background-overlay"></div>
                               <div class="elementor-container elementor-column-gap-no">
@@ -508,23 +508,41 @@
 
                                              <section class="elementor-section elementor-inner-section elementor-element elementor-element-3c23cfa elementor-section-full_width elementor-section-height-default elementor-section-height-default">
                                                 
-                                                <div class="relative my-4 mx-auto text-center md:text-left" style="z-index:10" >
+                                                <div class=" relative my-4 mx-auto text-center md:text-left">
                                                    <!-- Dropdown Button -->
-                                                   <button id="dropdownButton" class="text-white px-4 py-2 rounded-md focus:outline-none">
+                                                   <button id="dropdownButton" class="dropdownButton text-white px-4 py-2 rounded-md focus:outline-none">
                                                        Language 
                                                        <span id="selected-lang" class="mx-2 ms-4 p-2 bg-primary-color text-white text-xs rounded-xl">{{language}}</span>
                                                        <img src="{% static 'images/arrow-down.png' %}"/>
+                                                       <div id="dropdownMenu" class="dropdownMenu absolute mt-2 w-48 bg-white border rounded-md shadow-lg hidden">
+                                                           <div class="english lang-option option flex px-4 py-2 text-gray-800  space-between {% if language == 'English' %}active{% endif %}" data-value="English">English <img src="{% static 'images/english.png' %}"/></div>
+                                                           <div class="bengali lang-option option flex px-4 py-2 text-gray-800 space-between {% if language == 'Bengali' %}active{% endif %}" data-value="Bengali">Bengali <img src="{% static 'images/bangla.png' %}"/></div>
+                                                           <div class="hindi lang-option option flex px-4 py-2 text-gray-800 space-between {% if language == 'Hindi' %}active{% endif %}" data-value="Hindi">Hindi <img src="{% static 'images/hindi.png' %}"/></div>
+                                                          </div>
                                                    </button>
                                            
                                                    <!-- Dropdown Menu -->
-                                                   <div id="dropdownMenu" class="absolute mt-2 w-48 bg-white border rounded-md shadow-lg hidden">
-                                                       <div class="english lang-option flex px-4 py-2 text-gray-800  space-between {% if language == 'English' %}active{% endif %}" data-value="English">English <img src="{% static 'images/english.png' %}"/></div>
-                                                       <div class="bengali lang-option flex px-4 py-2 text-gray-800 space-between {% if language == 'Bengali' %}active{% endif %}" data-value="Bengali">Bengali <img src="{% static 'images/bangla.png' %}"/></div>
-                                                       <div class="hindi lang-option flex px-4 py-2 text-gray-800 space-between {% if language == 'Hindi' %}active{% endif %}" data-value="Hindi">Hindi <img src="{% static 'images/hindi.png' %}"/></div>
-                                                      </div>
                                                       <input type="text" value="English" id="lang_form" name="language" style="display:None;visibility:hidden" />
                                                </div>
-                                                <div class=" w-full flex items-center space-x-4 justify-center">
+
+                                               <div class=" relative my-4 mx-auto text-center md:text-left">
+                                                <!-- Dropdown Button -->
+                                                <button id="dropdownButtonModel" class="dropdownButton text-white px-4 py-2 rounded-md focus:outline-none">
+                                                    Model 
+                                                    <span id="selected-model" class="mx-2 ms-4 p-2 bg-primary-color text-white text-xs rounded-xl">{{modelname}}</span>
+                                                    <img src="{% static 'images/arrow-down.png' %}"/>
+                                                    <div id="dropdownMenuModel" class="dropdownMenu absolute mt-2 w-48 bg-white border rounded-md shadow-lg hidden">
+                                                      <div class="model-option option flex px-4 py-2 whitespace-nowrap {% if model == 1 %}active{% endif %} text-gray-800  space-between " data-model="1" data-modelname="llama3-8b-8192">llama3-8b-8192</div>
+                                                      <div class="model-option option flex px-4 py-2 whitespace-nowrap {% if model == 2 %}active{% endif %} text-gray-800  space-between " data-model="2" data-modelname="mixtral-8x7b-32768">mixtral-8x7b-32768</div>
+                                                      </div>
+                                                   </button>
+                                        
+                                                <!-- Dropdown Menu -->
+                                                
+                                                   <input type="text" value="1" id="model_form" name="model" style="display:None;visibility:hidden" />
+                                                </div>
+
+                                                {% comment %} <div class=" w-full flex items-center space-x-4 justify-center">
                                                    <input type="text" value="1" id="model_form" name="model" style="display:None;visibility:hidden" />
                                                    <!-- Left Arrow -->
                                                    <button class="bg-secondary hover:text-gray-700 focus:outline-none" id="left-arrow">
@@ -536,7 +554,6 @@
                                                    <div class="flex overflow-x-auto hide-scroll-bar space-x-4" id="model_select">
                                                       <button class="model-form px-4 py-2 whitespace-nowrap {% if model == 1 %}active{% endif %} text-white rounded-lg" data-model="1">Llama 3</button>
                                                       <button class="model-form px-4 py-2 whitespace-nowrap {% if model == 2 %}active{% endif %} rounded-lg" data-model="2">Mistral</button>
-                                                      {% comment %} <button class="model-form px-4 py-2 whitespace-nowrap {% if model == 3 %}active{% endif %} rounded-lg" data-model="3">OpenHathi</button> {% endcomment %}
                                                       
                                                       <!-- Add as many tabs as needed -->
                                                    </div>
@@ -547,7 +564,7 @@
                                                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                                                       </svg>
                                                    </button>
-                                                </div>
+                                                </div> {% endcomment %}
 
                                                 
                                                 <div class="file-element w-100 flex">
@@ -626,7 +643,7 @@
                                                                      <div class="elementor-widget-container">
                                                                         <ul class="elementor-icon-list-items">
                                                                            <li class="elementor-icon-list-item"  style="display:block">
-                                                                              <p class="elementor-icon-list-text">BTP Project</p>
+                                                                              {% comment %} <p class="elementor-icon-list-text">BTP Project</p> {% endcomment %}
                                                                            <p class="elementor-icon-list-text">Department of Computer Science and Engineering</p>
                                                                            <p class="elementor-icon-list-text">2024</p>
                                                                            </li>
@@ -1853,7 +1870,7 @@
         <div id="yt_article_summary_close_button" class="yt_article_summary_close_button">×</div>
     </div></body>
 <script>
-const leftArrow = document.getElementById('left-arrow');
+{% comment %} const leftArrow = document.getElementById('left-arrow');
 const rightArrow = document.getElementById('right-arrow');
 const tabsContainer = document.querySelector('.overflow-x-auto');
 
@@ -1869,9 +1886,9 @@ rightArrow.addEventListener('click', () => {
     left: 150,  // Adjust the scroll distance as needed
     behavior: 'smooth'
   });
-});
+}); {% endcomment %}
 
-const langs=document.querySelector(".lang-section");
+{% comment %} const langs=document.querySelector(".lang-section");
 const all=langs.querySelectorAll('.lang-box');
 all.forEach(div => {
    div.addEventListener('click', (event) => {
@@ -1892,11 +1909,9 @@ all.forEach(div => {
          // Prevent event from propagating to child elements
        event.stopPropagation();
    });
-});
-const models=document.querySelector("#model_select");
-const all_models=models.querySelectorAll('button');
-console.log(all_models)
-all_models.forEach(div => {
+}); {% endcomment %}
+
+{% comment %} all_models.forEach(div => {
    div.addEventListener('click', (event) => {
       // Determine which div was clicked
       event.preventDefault();
@@ -1911,7 +1926,7 @@ all_models.forEach(div => {
       // Prevent event from propagating to child elements
       event.stopPropagation();
    });
-});
+}); {% endcomment %}
 const upload=document.querySelector("#file-upload");
 upload.addEventListener("change",(event)=>{
    console.log(event.target.files);
@@ -1921,7 +1936,78 @@ upload.addEventListener("change",(event)=>{
    }
 })
 
+   // Toggle the dropdown menu
+   const dropdownButtons = document.querySelectorAll('.dropdownButton');
+   dropdownButtons.forEach(dropdownButton=>{
+      dropdownButton.addEventListener('click', (e) => {
+         e.preventDefault();
+         const dropdownMenu = dropdownButton.parentNode.querySelector('.dropdownMenu');
+         dropdownMenu.classList.toggle('hidden');
+      });
+   })
+   
+   // Close dropdown if clicked outside
+   
+   window.addEventListener('click', (e) => {
+      dropdownButtons.forEach(dropdownButton=>{
+         
+         if (!dropdownButton.contains(e.target)) {
+            const dropdownMenu = dropdownButton.parentNode.querySelector('.dropdownMenu');
+             dropdownMenu.classList.add('hidden');
+         }
+      })
+      /*if (!dropdownButton.contains(e.target)) {
+          dropdownMenu.classList.add('hidden');
+      }*/
+       document.querySelector("#error-section").style.display="None";
+   });
+
+   document.querySelectorAll(".lang-option").forEach((e)=>{
+      e.addEventListener("click",(event)=>{
+         document.querySelectorAll(".lang-option").forEach((obj)=>{
+            obj.classList.remove("active");
+         })
+       /* all.forEach((obj)=>{
+            if(obj.dataset.value==event.currentTarget.dataset.value)
+            obj.classList.add("active");
+            else
+            obj.classList.remove("active");
+   
+         });*/
+         event.currentTarget.classList.add("active");
+         document.querySelector("#lang_form").value=event.currentTarget.dataset.value;
+         console.log("clicked on: ",event.currentTarget.dataset.value);
+         document.querySelector("#selected-lang").innerText=event.currentTarget.dataset.value;
+      })
+   });
+   const models=document.querySelector("#dropdownButtonModel");
+   console.log(models)
+const all_models=models.querySelectorAll('.model-option');
+{% comment %} const all_models=models.querySelectorAll('button'); {% endcomment %}
+console.log(all_models);
+   document.querySelectorAll(".model-option").forEach((e)=>{
+      console.log(e,"model option");
+      e.addEventListener("click",(event)=>{
+         document.querySelectorAll(".model-option").forEach((obj)=>{
+            obj.classList.remove("active");
+         })
+         all_models.forEach((obj)=>{
+            if(obj.dataset.model==event.currentTarget.dataset.model)
+            obj.classList.add("active");
+            else
+            obj.classList.remove("active");
+            
+         });
+         console.log(event,"model option clicked");
+         event.currentTarget.classList.add("active");
+         document.querySelector("#model_form").value=event.currentTarget.dataset.model;
+         console.log("clicked on: ",event.currentTarget.dataset.model);
+         document.querySelector("#selected-model").innerText=event.currentTarget.dataset.modelname;
+      })
+   });
+
 </script>
+
 {% if form_submitted %}
 <script>
     // Scroll to the section after the form is submitted
@@ -1935,43 +2021,4 @@ upload.addEventListener("change",(event)=>{
   
 </script>
 {% endif %}
-<script>
-   // Toggle the dropdown menu
-   const dropdownButton = document.getElementById('dropdownButton');
-   const dropdownMenu = document.getElementById('dropdownMenu');
-
-   dropdownButton.addEventListener('click', (e) => {
-      e.preventDefault();
-      dropdownMenu.classList.toggle('hidden');
-   });
-   
-   // Close dropdown if clicked outside
-   window.addEventListener('click', (e) => {
-       if (!dropdownButton.contains(e.target)) {
-           dropdownMenu.classList.add('hidden');
-       }
-       document.querySelector("#error-section").style.display="None";
-   });
-</script>
-<script>
-   document.querySelectorAll(".lang-option").forEach((e)=>{
-      e.addEventListener("click",(event)=>{
-         document.querySelectorAll(".lang-option").forEach((obj)=>{
-            obj.classList.remove("active");
-         })
-        all.forEach((obj)=>{
-            if(obj.dataset.value==event.currentTarget.dataset.value)
-            obj.classList.add("active");
-            else
-            obj.classList.remove("active");
-   
-         });
-         event.currentTarget.classList.add("active");
-         document.querySelector("#lang_form").value=event.currentTarget.dataset.value;
-         console.log("clicked on: ",event.currentTarget.dataset.value);
-         document.querySelector("#selected-lang").innerText=event.currentTarget.dataset.value;
-      })
-   });
-
-</script>
 </html>
