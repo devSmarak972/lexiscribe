@@ -123,7 +123,8 @@ def home(request):
 	if request.method == 'POST':
 		print(request.POST)
 		print(request.FILES)
-		test = bool(request.GET.get('test',False))
+		test = request.GET.get('test', 'false')  # Default to 'false' if not provided
+		test = True if test=='true' else False
 		print("post received",test)
 		model_num=request.POST["model"]
 		error=None
