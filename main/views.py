@@ -15,12 +15,6 @@ import spacy
 nlp = spacy.load("en_core_web_lg")
 
 
-## Load the tokenizer and model from Groq API
-
-
-# def count_tkn_with_tokenizer(txt:str):
-#     return len(tokenizer(txt)['input_ids'])
-
 def create_chunks (sentences, doc_chunk_len: int = 484):
     max_chunk_token_len = doc_chunk_len
 
@@ -46,10 +40,26 @@ def create_chunks (sentences, doc_chunk_len: int = 484):
 
 
 import os
-models={
-	1:"llama3-8b-8192",
-	2:"mixtral-8x7b-32768"
+# models={
+# 	"Llama3":"llama3-8b-8192",
+# 	"Mixtral":"mixtral-8x7b-32768"
+# }
+models = {
+    "Distil-Whisper English": "distil-whisper-large-v3-en",
+    "Gemma 2 9B": "gemma2-9b-it",
+    "Gemma 7B": "gemma-7b-it",
+    "Llama 3.1 70B": "llama-3.1-70b-versatile",
+    "Llama 3.1 8B": "llama-3.1-8b-instant",
+    "Llama Guard 3 8B": "llama-guard-3-8b",
+    "Llama 3 70B": "llama3-70b-8192",
+    "Llama 3 8B": "llama3-8b-8192",
+    "Mixtral 8x7B": "mixtral-8x7b-32768",
+    "Whisper": "whisper-large-v3"
 }
+
+import re
+
+space_handler = lambda k: re.sub('\s+', ' ', re.sub('\n+', ' ', k.strip()))
 def run_groq_model(messages, model, temperature=0.7, top_p=1, max_tokens=16):
 	client = Groq(api_key=settings.GROQ_API_KEY)
 	chat_completion = client.chat.completions.create(
@@ -59,25 +69,29 @@ def run_groq_model(messages, model, temperature=0.7, top_p=1, max_tokens=16):
 	return chat_completion.choices[0].message.content
 def processChunks(full_text,model_num):
 	## Load full_text i.e. the text to be summarized
-
+	full_text=space_handler(full_text)
 	nlp.max_length = len(full_text) + 10000
 	sentences = [sent.text for sent in nlp(full_text).sents]
-	doc_chunk_len = 484
+	doc_chunk_len = 996
 	chunks = create_chunks(sentences, doc_chunk_len)
 	ret=""
+
 	for chunk in chunks:
-		ret+=run_groq_model([{"role": "user", "content": chunk}], models[model_num], max_tokens=500)
+		# Please Summarize the following text
+		instruction = f"Summarize the following Indian Legal judgment while highlighting key points such as the main arguments, quotations from the court, court decisions, and any significant legal precedents or statutes cited."
+		source = f"### Instruction: {instruction.strip()} \n\n### Judgment: \n{space_handler(chunk).strip()} \n\n### Summary: "
+		ret+=run_groq_model([{"role": "user", "content": source}], models[model_num], max_tokens=1024)
 	return ret
 
 
 def home(request):
-	context={"output":"Output appears here","input":"","form_submitted":False,"language":"English","model":1,"modelname":models[1]}
+	context={"output":"","input":"","form_submitted":False,"language":"English","model":"Llama 3 8B","modelname":models["Llama 3 8B"]}
 	if request.method == 'POST':
 		print(request.POST)
 		print(request.FILES)
-		model_num=int(request.POST["model"])
+		model_num=request.POST["model"]
 		error=None
-		if model_num>len(models.keys()):
+		if model_num not in models.keys():
 			error="Invalid model selection"
 		uploaded_file = request.FILES.get('file_input',None)
 		print(uploaded_file)
@@ -90,6 +104,9 @@ def home(request):
 			filename = fs.save(uploaded_file.name.replace(" ","_"), uploaded_file)
 			uploaded_file_url = fs.url(filename)
 			file_path = fs.path(filename)
+
+
+			#file size 5mb limit
 
 			# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 			print(uploaded_file_url,file_path)

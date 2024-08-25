@@ -242,7 +242,7 @@
       <link rel="apple-touch-icon" href="https://bylaw.wpengine.com/wp-content/uploads/2023/08/site-fav.svg' %}">
       <meta name="msapplication-TileImage" content="https://bylaw.wpengine.com/wp-content/uploads/2023/08/site-fav.svg' %}">
       <script src="" defer=""></script>
-              <script src="https://cdn.tailwindcss.com"></script>
+      <script src="https://cdn.tailwindcss.com"></script>
 
    </head>
    <body class="home page-template page-template-elementor_header_footer page page-id-1088 wp-custom-logo theme-bylaw has-go-to-top bylaw-plus-1.0.2 bylaw-pro-1.0.0 woocommerce-js elementor-default elementor-template-full-width elementor-kit-13 elementor-page elementor-page-1088 e--ua-isTouchDevice e--ua-blink e--ua-chrome e--ua-webkit" data-elementor-device-mode="laptop" data-new-gr-c-s-check-loaded="14.1190.0" data-gr-ext-installed="">
@@ -257,6 +257,9 @@
       <div class="wrapper">
          <div class="inner-wrapper">
             <div id="main">
+               <div class="logo-box absolute z-10 p-4" style="width:100px"> 
+                  <img src="{% static 'images/logo.jpg' %}">
+               </div>
                <div class="wdt-elementor-container-fluid">
                   <div data-elementor-type="wp-page" data-elementor-id="1088" class="elementor elementor-1088">
                      <div class="elementor-inner">
@@ -294,11 +297,11 @@
                                                                            <div class="wdt-content-image"><a href="#" target="" rel="nofollow"><img loading="lazy" decoding="async" width="1920" height="980" src="/static/Rectangle-331.jpg" class="attachment-full size-full wp-image-2283" alt="" srcset="https://bylaw.wpengine.com/wp-content/uploads/2023/10/Rectangle-331.jpg 1920w, https://bylaw.wpengine.com/wp-content/uploads/2023/10/Rectangle-331-300x153.jpg 300w, https://bylaw.wpengine.com/wp-content/uploads/2023/10/Rectangle-331-1024x523.jpg 1024w, https://bylaw.wpengine.com/wp-content/uploads/2023/10/Rectangle-331-768x392.jpg 768w, https://bylaw.wpengine.com/wp-content/uploads/2023/10/Rectangle-331-1536x784.jpg 1536w, https://bylaw.wpengine.com/wp-content/uploads/2023/10/Rectangle-331-1000x510.jpg 1000w" sizes="(max-width: 1920px) 100vw, 1920px"></a></div>
                                                                         </div>
                                                                         <div class="wdt-media-image-cover-container">
-                                                                           <div class="wdt-content-subtitle">Legal Text Summarization and Translation</div>
+                                                                           <div class="text-white text-4xl leading-snug md:text-7xl md:leading-tight" >Indian Legal Document Summarization</div>
                                                                            {% comment %} <div class="wdt-content-title">
                                                                               <h5><a href="#" target="" rel="nofollow">Experts <span class="wdt-head-img"></span> Legal Support &amp; Justice</a></h5>
                                                                            </div> {% endcomment %}
-                                                                           <div class="wdt-content-description">Legal texts are often lengthy and complex, posing significant challenges for legal professionals and the general public alike. Our research aims to address these challenges by developing sophisticated summarization techniques that distill vast amounts of legal information into concise, clear summaries.</div>
+                                                                           {% comment %} <div class="wdt-content-description">Legal texts are often lengthy and complex, posing significant challenges for legal professionals and the general public alike. Our research aims to address these challenges by developing sophisticated summarization techniques that distill vast amounts of legal information into concise, clear summaries.</div> {% endcomment %}
                                                                            
                                                                         </div>
                                                                      </div>
@@ -483,65 +486,73 @@
                                     <div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-f280ae6" data-id="f280ae6" data-element_type="column">
                                        <div class="elementor-column-wrap elementor-element-populated">
                                           <div class="elementor-widget-wrap">
-                                             <section class="elementor-section elementor-inner-section elementor-element elementor-element-06fa4f4 elementor-section-full_width elementor-section-height-default elementor-section-height-default" data-id="06fa4f4" data-element_type="section">
-                                                <div class="elementor-container elementor-column-gap-no">
-                                                   <div class="elementor-row">
-                                                      <div class="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-21bf63a" data-id="21bf63a" data-element_type="column">
-                                                         <div class="elementor-column-wrap elementor-element-populated">
-                                                            <div class="elementor-widget-wrap">
-                                                               <div class="elementor-element elementor-element-cd2ee5d elementor-widget__width-initial start elementor-widget elementor-widget-wdt-heading animated fadeInLeft wdt-item-is-inview" data-id="cd2ee5d" data-element_type="widget" data-widget_type="wdt-heading.default">
-                                                                  <div class="elementor-widget-container">
-                                                                     <div class="wdt-heading-holder " id="wdt-heading-cd2ee5d">
-                                                                        <div class="wdt-heading-subtitle-wrapper wdt-heading-align-center "><span class="wdt-heading-subtitle">Model Selection</span></div>
-                                                                           <p>Choose from the available language models and upload a document or use the input box</p>
-                                                                     </div>
-                                                                  </div>
-                                                               </div>
-                                                            </div>
-                                                         </div>
-                                                      </div>
-                                                   </div>
-                                                </div>
-                                             </section>
+                                             
                                              <form method="POST" style="width:100%"  enctype="multipart/form-data">
                                                 {% csrf_token %}
 
                                              <section class="elementor-section elementor-inner-section elementor-element elementor-element-3c23cfa elementor-section-full_width elementor-section-height-default elementor-section-height-default">
-                                                
-                                                <div class=" relative my-4 mx-auto text-center md:text-left">
-                                                   <!-- Dropdown Button -->
-                                                   <button id="dropdownButton" class="dropdownButton text-white px-4 py-2 rounded-md focus:outline-none">
-                                                       Language 
-                                                       <span id="selected-lang" class="mx-2 ms-4 p-2 bg-primary-color text-white text-xs rounded-xl">{{language}}</span>
-                                                       <img src="{% static 'images/arrow-down.png' %}"/>
-                                                       <div id="dropdownMenu" class="dropdownMenu absolute mt-2 w-48 bg-white border rounded-md shadow-lg hidden">
-                                                           <div class="english lang-option option flex px-4 py-2 text-gray-800  space-between {% if language == 'English' %}active{% endif %}" data-value="English">English <img src="{% static 'images/english.png' %}"/></div>
-                                                           <div class="bengali lang-option option flex px-4 py-2 text-gray-800 space-between {% if language == 'Bengali' %}active{% endif %}" data-value="Bengali">Bengali <img src="{% static 'images/bangla.png' %}"/></div>
-                                                           <div class="hindi lang-option option flex px-4 py-2 text-gray-800 space-between {% if language == 'Hindi' %}active{% endif %}" data-value="Hindi">Hindi <img src="{% static 'images/hindi.png' %}"/></div>
-                                                          </div>
-                                                   </button>
-                                           
-                                                   <!-- Dropdown Menu -->
-                                                      <input type="text" value="English" id="lang_form" name="language" style="display:None;visibility:hidden" />
-                                               </div>
+                                                <div class="elementor-widget-container">
+                                                   <div class=" ">
+                                                      <div class="flex flex-wrap m-auto text-center space-between wdt-heading-subtitle-wrapper wdt-heading-align-center ">
+                                                         <div class="select-box m-auto">
+                                                         <div class="wdt-heading-subtitle text-center text-xl text-bold" >Language Selection</div>
+                                                         <div class="min-w-52 relative my-4 mx-auto text-center md:text-left">
+                                                            <!-- Dropdown Button -->
+                                                            <button id="dropdownButton" class="w-full dropdownButton text-white px-4 py-2 rounded-md focus:outline-none">
+                                                               Language 
+                                                               <span id="selected-lang" class="mx-2 ms-4 p-2 bg-primary-color text-white text-xs rounded-xl">{{language}}</span>
+                                                                  <img src="{% static 'images/arrow-down.png' %}"/>
+                                                                  <div id="dropdownMenu" class="dropdownMenu absolute mt-2 w-48 bg-white border rounded-md shadow-lg hidden">
+                                                                     <div class="english lang-option option flex px-4 py-2 text-gray-800  space-between {% if language == 'English' %}active{% endif %}" data-value="English">English <img src="{% static 'images/english.png' %}"/></div>
+                                                                     <div class="bengali lang-option option flex px-4 py-2 text-gray-800 space-between {% if language == 'Bengali' %}active{% endif %}" data-value="Bengali">Bengali <img src="{% static 'images/bangla.png' %}"/></div>
+                                                                     <div class="hindi lang-option option flex px-4 py-2 text-gray-800 space-between {% if language == 'Hindi' %}active{% endif %}" data-value="Hindi">Hindi <img src="{% static 'images/hindi.png' %}"/></div>
+                                                                     </div>
+                                                               </button>
+                                                      
+                                                               <!-- Dropdown Menu -->
+                                                                  <input type="text" value="English" id="lang_form" name="language" style="display:None;visibility:hidden" />
+                                                            </div>
+                                                         </div>
+                                                         <div class="select-box m-auto">
+                                                            <div class="wdt-heading-subtitle text-center text-xl text-bold">Model Selection</div>
+                                                            <div class="min-w-52 relative my-4 mx-auto text-center md:text-left">
+                                                                  <!-- Dropdown Button -->
+                                                                  <button id="dropdownButtonModel" class="w-full dropdownButton text-white px-4 py-2 rounded-md focus:outline-none">
+                                                                  Model 
+                                                                  <span id="selected-model" class="mx-2 ms-4 p-2 bg-primary-color text-white text-xs rounded-xl">{{model}}</span>
+                                                                  <img src="{% static 'images/arrow-down.png' %}"/>
+                                                                  <div id="dropdownMenuModel" class="dropdownMenu absolute mt-2 w-48 bg-white border rounded-md shadow-lg hidden">
+                                                                     {% comment %} <div class="model-option option flex px-4 py-2 whitespace-nowrap {% if model == 'Distil-Whisper English' %}active{% endif %} text-gray-800 space-between" data-model="Distil-Whisper English" data-modelname="distil-whisper-large-v3-en">Distil-Whisper English</div> {% endcomment %}
 
-                                               <div class=" relative my-4 mx-auto text-center md:text-left">
-                                                <!-- Dropdown Button -->
-                                                <button id="dropdownButtonModel" class="dropdownButton text-white px-4 py-2 rounded-md focus:outline-none">
-                                                    Model 
-                                                    <span id="selected-model" class="mx-2 ms-4 p-2 bg-primary-color text-white text-xs rounded-xl">{{modelname}}</span>
-                                                    <img src="{% static 'images/arrow-down.png' %}"/>
-                                                    <div id="dropdownMenuModel" class="dropdownMenu absolute mt-2 w-48 bg-white border rounded-md shadow-lg hidden">
-                                                      <div class="model-option option flex px-4 py-2 whitespace-nowrap {% if model == 1 %}active{% endif %} text-gray-800  space-between " data-model="1" data-modelname="llama3-8b-8192">llama3-8b-8192</div>
-                                                      <div class="model-option option flex px-4 py-2 whitespace-nowrap {% if model == 2 %}active{% endif %} text-gray-800  space-between " data-model="2" data-modelname="mixtral-8x7b-32768">mixtral-8x7b-32768</div>
-                                                      </div>
-                                                   </button>
-                                        
-                                                <!-- Dropdown Menu -->
-                                                
-                                                   <input type="text" value="1" id="model_form" name="model" style="display:None;visibility:hidden" />
-                                                </div>
-
+                                                                     <div class="model-option option flex px-4 py-2 whitespace-nowrap {% if model == 'Gemma 2 9B' %}active{% endif %} text-gray-800 space-between" data-model="Gemma 2 9B" data-modelname="gemma2-9b-it">Gemma 2 9B</div>
+                                                                     
+                                                                     <div class="model-option option flex px-4 py-2 whitespace-nowrap {% if model == 'Gemma 7B' %}active{% endif %} text-gray-800 space-between" data-model="Gemma 7B" data-modelname="gemma-7b-it">Gemma 7B</div>
+                                                                                                                                                                                                               
+                                                                     <div class="model-option option flex px-4 py-2 whitespace-nowrap {% if model == 'Llama 3.1 70B' %}active{% endif %} text-gray-800 space-between" data-model="Llama 3.1 70B" data-modelname="llama-3.1-70b-versatile">Llama 3.1 70B</div>
+                                                                     
+                                                                     <div class="model-option option flex px-4 py-2 whitespace-nowrap {% if model == 'Llama 3.1 8B' %}active{% endif %} text-gray-800 space-between" data-model="Llama 3.1 8B" data-modelname="llama-3.1-8b-instant">Llama 3.1 8B</div>
+                                                                     
+                                                                     <div class="model-option option flex px-4 py-2 whitespace-nowrap {% if model == 'Llama Guard 3 8B' %}active{% endif %} text-gray-800 space-between" data-model="Llama Guard 3 8B" data-modelname="llama-guard-3-8b">Llama Guard 3 8B</div>
+                                                                     
+                                                                     <div class="model-option option flex px-4 py-2 whitespace-nowrap {% if model == 'Llama 3 70B' %}active{% endif %} text-gray-800 space-between" data-model="Llama 3 70B" data-modelname="llama3-70b-8192">Llama 3 70B</div>
+                                                                     
+                                                                     <div class="model-option option flex px-4 py-2 whitespace-nowrap {% if model == 'Llama 3 8B' %}active{% endif %} text-gray-800 space-between" data-model="Llama 3 8B" data-modelname="llama3-8b-8192">Llama 3 8B</div>
+                                                                     
+                                                                     <div class="model-option option flex px-4 py-2 whitespace-nowrap {% if model == 'Mixtral 8x7B' %}active{% endif %} text-gray-800 space-between" data-model="Mixtral 8x7B" data-modelname="mixtral-8x7b-32768">Mixtral 8x7B</div>
+                                                                     
+                                                                     {% comment %} <div class="model-option option flex px-4 py-2 whitespace-nowrap {% if model == 'Whisper' %}active{% endif %} text-gray-800 space-between" data-model="Whisper" data-modelname="whisper-large-v3">Whisper</div> {% endcomment %}
+                                                                  </div>
+                                                                  </button>
+                                                      
+                                                                  <!-- Dropdown Menu -->
+                                                               
+                                                                  <input type="text" value="Llama 3 8B" id="model_form" name="model" style="display:None;visibility:hidden" />
+                                                            </div>
+                                                         </div>
+                                                   </div>
+                                             </div>
+                                          </div>
+                                          <!-- end of dropdowns -->
                                                 {% comment %} <div class=" w-full flex items-center space-x-4 justify-center">
                                                    <input type="text" value="1" id="model_form" name="model" style="display:None;visibility:hidden" />
                                                    <!-- Left Arrow -->
@@ -572,10 +583,12 @@
                                                    <label for="file-upload" class="" id="file-label">
                                                      Upload File
                                                    </label>
-                                                   <div class="flex-1 bg-white mb-4 mt-4 ms-2 text-gray-400 p-3" name="filename" id="filename">{% if file_uploaded %}{{file_uploaded}}{% else %}Upload a legal document{% endif %}</div>
+                                                   <div class="flex-1 bg-transparent mb-4 mt-4 ms-2 text-white p-3" name="filename" id="filename">{% if file_uploaded %}{{file_uploaded}}{% else %}Upload a legal document{% endif %}</div>
 
                                                    <input type="file" name="file_input" id="file-upload" hidden/>                                           
                                                 </div>
+                                             
+                                             
                                              </section>
                                              <section id="error-section" class="bg-white text-red-600 py-2 w-1/3 my-3 mx-auto text-center" style="display:{% if error %}block{% else %}none{% endif %}">
                                                 <div class="error">{% if error %}{{error}}{% endif %}</div>
@@ -583,11 +596,11 @@
                                              <section id="text-input" class="elementor-section elementor-inner-section elementor-element elementor-element-3c23cfa elementor-section-full_width elementor-section-height-default elementor-section-height-default animated fadeInRight" data-id="3c23cfa" data-element_type="section">
                                                 <div class="flex flex-wrap md:flex-nowrap gap-2">
                                                    <div id="input" class="input-section w-full md:w-1/2 mx-2 mb-2">
-                                                      <textarea class="text-gray-500 w-full p-3 h-60" placeholder="Enter the input text" rows="10" name="input_text" id="input_text">{{input}}</textarea>
+                                                      <textarea class="text-gray-500 w-full p-3 h-60" placeholder="Write the legal document" rows="10" name="input_text" id="input_text">{{input}}</textarea>
                                                    </div>
                                                    <div  id="output" class="input-section w-full md:w-1/2 mx-2">
                                                       <div class="test"></div>
-                                                      <textarea class="text-gray-500 w-full p-3 h-60" placeholder="Output appears here" name="output_text" id="output_text" readonly style="overflow:auto">{% if output %}{{output}}{% else %}Output appears here{% endif %}</textarea>
+                                                      <textarea class="text-gray-500 w-full p-3 h-60" placeholder="Generated Summary appears here" name="output_text" id="output_text" readonly style="overflow:auto">{% if output %}{{output}}{% else %}Generated Summary appears here{% endif %}</textarea>
                                                    </div>
                                                 </div>
                                              </section>
@@ -613,62 +626,15 @@
                </div>
             </div>
             <footer id="footer">
-               <div class="wdt-elementor-container-fluid">
-                  <div id="footer-2399" class="wdt-footer-tpl footer-2399">
-                     <div data-elementor-type="wp-post" data-elementor-id="2399" class="elementor elementor-2399">
-                        <div class="elementor-inner">
-                           <div class="elementor-section-wrap">
-                              
-                              <section class="elementor-section elementor-top-section elementor-element elementor-element-6fe3130 elementor-section-full_width elementor-section-height-default elementor-section-height-default" data-id="6fe3130" data-element_type="section" data-settings="">
-                                 <div class="elementor-container elementor-column-gap-no">
-                                    <div class="elementor-row">
-                                       <div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-ccf70b2" data-id="ccf70b2" data-element_type="column">
-                                          <div class="elementor-column-wrap elementor-element-populated">
-                                             <div class="elementor-widget-wrap">
-                                                <section class="elementor-section elementor-inner-section elementor-element elementor-element-e1f9525 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="e1f9525" data-element_type="section" data-settings="">
-                                                   <div class="elementor-container elementor-column-gap-no">
-                                                      <div class="elementor-row">
-                                                         <div class="elementor-column elementor-col-25 elementor-inner-column elementor-element elementor-element-82f4df1" data-id="82f4df1" data-element_type="column">
-                                                            <div class="elementor-column-wrap elementor-element-populated">
-                                                               <div class="elementor-widget-wrap">
-                                                                  <div class="elementor-element elementor-element-7014d07 elementor-tablet-align-left elementor-mobile_extra-align-left elementor-widget__width-inherit elementor-widget elementor-widget-wdt-logo" data-id="7014d07" data-element_type="widget"  data-widget_type="wdt-logo.default">
-                                                                     <div class="elementor-widget-container">
-                                                                        <div id="bylaw-7014d07" class="wdt-logo-container">  
-                                                                           <a href="" rel="home">
-                                                                           <img src="{% static 'images/logo.png' %}" alt="IITKGP" width="189" height="50"></a>
-                                                                           </div>
-                                                                     </div>
-                                                                  </div>
-                                                                  <div class="elementor-element elementor-element-840fae1 elementor-list-item-link-inline elementor-widget__width-initial elementor-tablet-align-left elementor-mobile_extra-align-left elementor-icon-list--layout-traditional elementor-widget elementor-widget-icon-list" data-id="840fae1" data-element_type="widget"  data-widget_type="icon-list.default">
-                                                                     <div class="elementor-widget-container">
-                                                                        <ul class="elementor-icon-list-items">
-                                                                           <li class="elementor-icon-list-item"  style="display:block">
-                                                                              {% comment %} <p class="elementor-icon-list-text">BTP Project</p> {% endcomment %}
-                                                                           <p class="elementor-icon-list-text">Department of Computer Science and Engineering</p>
-                                                                           <p class="elementor-icon-list-text">2024</p>
-                                                                           </li>
-                                                                        </ul>
-                                                                     </div>
-                                                                  </div>
-                                                                
-                                                               </div>
-                                                            </div>
-                                                         </div>
-                                                       
-                                                         
-                                                      </div>
-                                                   </div>
-                                                </section>
-                                                
-                                             </div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </section>
-                           </div>
-                        </div>
-                     </div>
+               <div class="text-center text-white elementor-element elementor-element-840fae1 elementor-list-item-link-inline elementor-widget__width-initial elementor-tablet-align-left elementor-mobile_extra-align-left elementor-icon-list--layout-traditional elementor-widget elementor-widget-icon-list" data-id="840fae1" data-element_type="widget"  data-widget_type="icon-list.default">
+                  <div class="elementor-widget-container py-4 " style="background-color: var(--e-global-color-accent);">
+                     <ul class="elementor-icon-list-items">
+                        <li class="elementor-icon-list-item"  style="display:block">
+                           {% comment %} <p class="elementor-icon-list-text">BTP Project</p> {% endcomment %}
+                        <p class="elementor-icon-list-text"> © IIT Kharagpur</p>
+                        <p class="elementor-icon-list-text">2024</p>
+                        </li>
+                     </ul>
                   </div>
                </div>
             </footer>
