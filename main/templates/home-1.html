@@ -510,7 +510,7 @@
                                                                </button>
                                                       
                                                                <!-- Dropdown Menu -->
-                                                                  <input type="text" value="English" id="lang_form" name="language" style="display:None;visibility:hidden" />
+                                                                  <input type="text" value="{{language}}" id="lang_form" name="language" style="display:None;visibility:hidden" />
                                                             </div>
                                                          </div>
                                                          <div class="select-box m-auto">
@@ -546,7 +546,7 @@
                                                       
                                                                   <!-- Dropdown Menu -->
                                                                
-                                                                  <input type="text" value="Llama 3 8B" id="model_form" name="model" style="display:None;visibility:hidden" />
+                                                                  <input type="text" value="{{model}}" id="model_form" name="model" style="display:None;visibility:hidden" />
                                                             </div>
                                                          </div>
                                                    </div>
@@ -583,9 +583,9 @@
                                                    <label for="file-upload" class="" id="file-label">
                                                      Upload File
                                                    </label>
-                                                   <div class="flex-1 bg-transparent mb-4 mt-4 ms-2 text-white p-3" name="filename" id="filename">{% if file_uploaded %}{{file_uploaded}}{% else %}Upload a legal document{% endif %}</div>
+                                                   <div class="flex-1 bg-transparent mb-4 mt-4 ms-2 text-white p-3" name="filename" id="filename">{% if file_uploaded %}{{file_uploaded}}{% else %}Upload a legal document (Limit: 5MB){% endif %}</div>
 
-                                                   <input type="file" name="file_input" id="file-upload" hidden/>                                           
+                                                   <input type="file" name="file_input" id="file-upload" onchange="validateFileSize(this)" hidden/>                                           
                                                 </div>
                                              
                                              
@@ -1968,10 +1968,22 @@ console.log(all_models);
          event.currentTarget.classList.add("active");
          document.querySelector("#model_form").value=event.currentTarget.dataset.model;
          console.log("clicked on: ",event.currentTarget.dataset.model);
-         document.querySelector("#selected-model").innerText=event.currentTarget.dataset.modelname;
+         document.querySelector("#selected-model").innerText=event.currentTarget.dataset.model;
       })
    });
+      function validateFileSize(input) {
+          const file = input.files[0];
+          const maxSizeMB = 5;  // Maximum file size in MB
+          const maxSizeBytes = maxSizeMB * 1024 * 1024;
 
+          if (file && file.size > maxSizeBytes) {
+              //alert('File size exceeds the 5 MB limit.');
+              const err=document.querySelector("#error-section");
+              err.style.display="block";
+              err.querySelector(".error").innerText="File size exceeds the 5 MB limit! Upload a smaller file";
+              input.value = '';  // Clear the input
+          }
+      }
 </script>
 
 {% if form_submitted %}

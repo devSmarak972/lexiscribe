@@ -1,0 +1,3 @@
+[submodule "IndicTransTokenizer"]
+	path = IndicTransTokenizer
+	url = https://github.com/VarunGumma/IndicTransTokenizer

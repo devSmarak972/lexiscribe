@@ -3,8 +3,39 @@ from groq import Groq
 from legal_text import settings
 from django.core.files.storage import FileSystemStorage
 from pypdf import PdfReader
+import os
 MAX_TOKENS=500
-from nltk.tokenize import word_tokenize
+from nltk.tokenize import word_tokenize,sent_tokenize
+from .indicTrans import initialize_model_and_tokenizer, batch_translate
+from .cleanJudgement import clean_judgment
+quantization = None
+model_id = "ai4bharat/indictrans2-en-indic-1B"  # ai4bharat/indictrans2-en-indic-dist-200M
+en_indic_ckpt_dir=settings.MODEL_DIR
+en_indic_tokenizer, en_indic_model = initialize_model_and_tokenizer(model_id,en_indic_ckpt_dir, "en-indic", quantization)
+language_setting={
+	"Hindi":"hin_Deva",
+	"Bengali":"ben_Beng",
+}
+
+def split_text_into_sentences(text):
+    sentences = sent_tokenize(text)
+    return sentences
+
+def indicTranslate(in_text,out_lang):
+	src_lang, tgt_lang = "eng_Latn", language_setting[out_lang]
+	en_sents=split_text_into_sentences(in_text)
+	print(en_sents)
+	hi_translations = batch_translate(en_sents, src_lang, tgt_lang, en_indic_model, en_indic_tokenizer)
+	print(f"\n{src_lang} - {tgt_lang}")
+	ret=""
+	for input_sentence, translation in zip(en_sents, hi_translations):
+		print(f"{src_lang}: {input_sentence}")
+		print(f"{tgt_lang}: {translation}")
+		ret+=translation+" "
+	return ret
+
+
+
 
 def count_tkn_with_tokenizer(txt: str) -> int:
     return len(word_tokenize(txt))
@@ -67,7 +98,7 @@ def run_groq_model(messages, model, temperature=0.7, top_p=1, max_tokens=16):
 		model=model, n=1, max_tokens=max_tokens
 	)
 	return chat_completion.choices[0].message.content
-def processChunks(full_text,model_num):
+def processChunks(full_text,model_num,test):
 	## Load full_text i.e. the text to be summarized
 	full_text=space_handler(full_text)
 	nlp.max_length = len(full_text) + 10000
@@ -77,9 +108,12 @@ def processChunks(full_text,model_num):
 	ret=""
 
 	for chunk in chunks:
-		# Please Summarize the following text
-		instruction = f"Summarize the following Indian Legal judgment while highlighting key points such as the main arguments, quotations from the court, court decisions, and any significant legal precedents or statutes cited."
-		source = f"### Instruction: {instruction.strip()} \n\n### Judgment: \n{space_handler(chunk).strip()} \n\n### Summary: "
+		if test:
+			instruction= "Please Summarize the following text"
+			source = f"### Instruction: {instruction.strip()} \n\n### Text: \n{space_handler(chunk).strip()} \n\n### Summary: "
+		else:
+			instruction = f"Summarize the following Indian Legal judgment while highlighting key points such as the main arguments, quotations from the court, court decisions, and any significant legal precedents or statutes cited."
+			source = f"### Instruction: {instruction.strip()} \n\n### Judgment: \n{space_handler(chunk).strip()} \n\n### Summary: "
 		ret+=run_groq_model([{"role": "user", "content": source}], models[model_num], max_tokens=1024)
 	return ret
 
@@ -89,6 +123,8 @@ def home(request):
 	if request.method == 'POST':
 		print(request.POST)
 		print(request.FILES)
+		test = bool(request.GET.get('test',False))
+		print("post received",test)
 		model_num=request.POST["model"]
 		error=None
 		if model_num not in models.keys():
@@ -98,7 +134,7 @@ def home(request):
 		input_text=request.POST.get("input_text",None)
 		if len(input_text)==0 and uploaded_file is None:
 			error="Input is empty"
-
+		lang=request.POST.get("language","English")
 		if uploaded_file is not None and error is None:
 			fs = FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT, "files"))
 			filename = fs.save(uploaded_file.name.replace(" ","_"), uploaded_file)
@@ -110,7 +146,7 @@ def home(request):
 
 			# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 			print(uploaded_file_url,file_path)
-			ret="first"
+			ret=""
 
 			reader = PdfReader(file_path)
 			input_data=""
@@ -118,7 +154,18 @@ def home(request):
 				input_data+=page.extract_text()+"\n"
 				if len(input_data)>=MAX_TOKENS:
 					break
-			ret = processChunks(input_data,model_num)
+			ret = processChunks(input_data,model_num,test)
+			if lang != 'English':
+				if lang in language_setting.keys():
+					ret=indicTranslate(ret,lang)
+				else:
+					error="Language not found"
+					context={"success":False,"error":error,"input":request.POST.get("input_text"),"form_submitted":True,"language":request.POST["language"],"model":model_num,"modelname":models[model_num]}
+					# return redirect('/?submitted=True')
+					return render(request, 'home-1.html',context=context)
+				
+
+
 			context={"success":True,"output":ret,"form_submitted":True,"language":request.POST["language"],"model":model_num,"modelname":models[model_num]}
 			# return redirect('/?submitted=True')
 			reader.close()
@@ -128,8 +175,17 @@ def home(request):
 				fs.delete(file_path)
 			return render(request, 'home-1.html',context=context)
 		elif input_text is not None and input_text !="" and error is None:
-			ret="second"
-			ret = processChunks(input_text,model_num)
+			ret=""
+			ret = processChunks(input_text,model_num,test)
+			if lang != 'English':
+				if lang in language_setting.keys():
+					ret=indicTranslate(ret,lang)
+				else:
+					error="Language not found"
+					context={"success":False,"error":error,"input":request.POST.get("input_text"),"form_submitted":True,"language":request.POST["language"],"model":model_num,"modelname":models[model_num]}
+					# return redirect('/?submitted=True')
+					return render(request, 'home-1.html',context=context)
+				
 			# ret = run_groq_model([{"role": "user", "content": request.POST.get("input_text")}], "llama3-8b-8192", max_tokens=100)
 			context={"success":True,"output":ret,"input":request.POST.get("input_text"),"form_submitted":True,"language":request.POST["language"],"model":model_num,"modelname":models[model_num]}
 			# return redirect('/?submitted=True')
@@ -142,6 +198,7 @@ def home(request):
 		# submitted = request.GET.get('submitted',False)
 		# context["form_submitted"]=submitted
 		# print("submitted",submitted,context)
+		
 		return render(request, 'home-1.html',context=context)
 
 	# print(ret)
