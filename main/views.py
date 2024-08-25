@@ -11,7 +11,7 @@ from .cleanJudgement import clean_judgment
 quantization = None
 model_id = "ai4bharat/indictrans2-en-indic-1B"  # ai4bharat/indictrans2-en-indic-dist-200M
 en_indic_ckpt_dir=settings.MODEL_DIR
-en_indic_tokenizer, en_indic_model = initialize_model_and_tokenizer(model_id,en_indic_ckpt_dir, "en-indic", quantization)
+# en_indic_tokenizer, en_indic_model = initialize_model_and_tokenizer(model_id,en_indic_ckpt_dir, "en-indic", quantization)
 language_setting={
 	"Hindi":"hin_Deva",
 	"Bengali":"ben_Beng",
@@ -21,18 +21,18 @@ def split_text_into_sentences(text):
     sentences = sent_tokenize(text)
     return sentences
 
-def indicTranslate(in_text,out_lang):
-	src_lang, tgt_lang = "eng_Latn", language_setting[out_lang]
-	en_sents=split_text_into_sentences(in_text)
-	print(en_sents)
-	hi_translations = batch_translate(en_sents, src_lang, tgt_lang, en_indic_model, en_indic_tokenizer)
-	print(f"\n{src_lang} - {tgt_lang}")
-	ret=""
-	for input_sentence, translation in zip(en_sents, hi_translations):
-		print(f"{src_lang}: {input_sentence}")
-		print(f"{tgt_lang}: {translation}")
-		ret+=translation+" "
-	return ret
+# def indicTranslate(in_text,out_lang):
+# 	src_lang, tgt_lang = "eng_Latn", language_setting[out_lang]
+# 	en_sents=split_text_into_sentences(in_text)
+# 	print(en_sents)
+# 	hi_translations = batch_translate(en_sents, src_lang, tgt_lang, en_indic_model, en_indic_tokenizer)
+# 	print(f"\n{src_lang} - {tgt_lang}")
+# 	ret=""
+# 	for input_sentence, translation in zip(en_sents, hi_translations):
+# 		print(f"{src_lang}: {input_sentence}")
+# 		print(f"{tgt_lang}: {translation}")
+# 		ret+=translation+" "
+# 	return ret
 
 
 
