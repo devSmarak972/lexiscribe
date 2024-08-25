@@ -157,7 +157,9 @@ def home(request):
 			ret = processChunks(input_data,model_num,test)
 			if lang != 'English':
 				if lang in language_setting.keys():
-					ret=indicTranslate(ret,lang)
+					pass
+					# ret=indicTranslate(ret,lang)
+					# ret=""
 				else:
 					error="Language not found"
 					context={"success":False,"error":error,"input":request.POST.get("input_text"),"form_submitted":True,"language":request.POST["language"],"model":model_num,"modelname":models[model_num]}
@@ -179,7 +181,8 @@ def home(request):
 			ret = processChunks(input_text,model_num,test)
 			if lang != 'English':
 				if lang in language_setting.keys():
-					ret=indicTranslate(ret,lang)
+					# ret=indicTranslate(ret,lang)
+					pass
 				else:
 					error="Language not found"
 					context={"success":False,"error":error,"input":request.POST.get("input_text"),"form_submitted":True,"language":request.POST["language"],"model":model_num,"modelname":models[model_num]}
