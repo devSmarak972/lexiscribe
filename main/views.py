@@ -115,6 +115,8 @@ def processChunks(full_text,model_num,test):
 			instruction = f"Summarize the following Indian Legal judgment while highlighting key points such as the main arguments, quotations from the court, court decisions, and any significant legal precedents or statutes cited."
 			source = f"### Instruction: {instruction.strip()} \n\n### Judgment: \n{space_handler(chunk).strip()} \n\n### Summary: "
 		ret+=run_groq_model([{"role": "user", "content": source}], models[model_num], max_tokens=1024)
+	ret=re.sub(r'\n+', '\n', ret)
+
 	return ret
 
 

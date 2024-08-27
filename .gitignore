@@ -3,6 +3,6 @@
 *migrations
 *__pycache__
 **.pyc
-*legal_text/settings.py
+legal_text/settings.py
 *main/models
 *media*
