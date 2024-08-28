@@ -217,7 +217,7 @@
          /* #endregion - Responsive */
       </style>
       <style id="bylaw-admin-inline-css" type="text/css">
-         .custom_loader { background-color:var( --wdtBodyBGColor );}.custom_loader:before { background-color:var( --wdtTertiaryColor );}body { font-family: 'DM Sans', sans-serif;font-weight:400;font-size:16px;line-height:1.64;color:#000000; } 
+         .custom_loader { background-color:var( --wdtBodyBGColor );}.custom_loader:before { background-color:var( --wdtTertiaryColor );}body { font-family: "Times New Roman", Times, serif;font-weight:400;font-size:16px;line-height:1.64;color:#000000; } 
          a { color:#1f3044;}
          a:hover { color:#cb935d;}
          h1 { font-family: 'Cormorant Garamond', serif;font-weight:600;font-size:70px;line-height:1.2; } 
@@ -243,7 +243,8 @@
       <meta name="msapplication-TileImage" content="https://bylaw.wpengine.com/wp-content/uploads/2023/08/site-fav.svg' %}">
       <script src="" defer=""></script>
       <script src="https://cdn.tailwindcss.com"></script>
-
+      {% comment %} <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/fontawesome.min.css" integrity="sha512-B46MVOJpI6RBsdcU307elYeStF2JKT87SsHZfRSkjVi4/iZ3912zXi45X5/CBr/GbCyLx6M1GQtTKYRd52Jxgw==" crossorigin="anonymous" referrerpolicy="no-referrer" /> {% endcomment %}
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
    </head>
    <body class="home page-template page-template-elementor_header_footer page page-id-1088 wp-custom-logo theme-bylaw has-go-to-top bylaw-plus-1.0.2 bylaw-pro-1.0.0 woocommerce-js elementor-default elementor-template-full-width elementor-kit-13 elementor-page elementor-page-1088 e--ua-isTouchDevice e--ua-blink e--ua-chrome e--ua-webkit" data-elementor-device-mode="laptop" data-new-gr-c-s-check-loaded="14.1190.0" data-gr-ext-installed="">
       <div class="pre-loader custom_loader" style="display: none;">
@@ -604,7 +605,14 @@
                                                    </div>
                                                 </div>
                                              </section>
+                                             <div class="flex">
                                              <button  type="submit" class="submit-btn px-4 py-2 whitespace-nowrap active text-white rounded-lg my-2">Submit</button>
+                                             <div class="loader-container" style="display:none;">
+                                                <div class="text-2xl px-6 loader my-auto">
+                                                   <i class="fas fa-spinner fa-spin loader"></i>
+                                                </div>
+                                            </div>
+                                            </div>
                                           </form>
                                           </div>
                                        </div>
@@ -1984,6 +1992,19 @@ console.log(all_models);
               input.value = '';  // Clear the input
           }
       }
+
+      const loaderContainer = document.querySelector('.loader-container');
+      const form=document.querySelector('form');
+      form.addEventListener('submit', function(event) {
+          // Show the loader when the form is submitted
+          console.log("here\n")
+          loaderContainer.style.display = 'flex';
+          // Optionally: Prevent the form from being submitted multiple times
+          // by disabling the submit button
+          const submitButton = form.querySelector('button[type="submit"]');
+          submitButton.disabled = true;
+      });
+
 </script>
 
 {% if form_submitted %}
@@ -1997,6 +2018,8 @@ console.log(all_models);
           document.getElementById('text-input').scrollIntoView({ behavior: 'smooth' });
       });
   
+
+   
 </script>
 {% endif %}
 </html>
