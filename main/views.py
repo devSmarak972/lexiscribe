@@ -18,8 +18,8 @@ language_setting={
 }
 
 def split_text_into_sentences(text):
-    sentences = sent_tokenize(text)
-    return sentences
+	sentences = sent_tokenize(text)
+	return sentences
 
 # def indicTranslate(in_text,out_lang):
 # 	src_lang, tgt_lang = "eng_Latn", language_setting[out_lang]
@@ -38,7 +38,7 @@ def split_text_into_sentences(text):
 
 
 def count_tkn_with_tokenizer(txt: str) -> int:
-    return len(word_tokenize(txt))
+	return len(word_tokenize(txt))
 # Load the tokenizer
 
 import spacy
@@ -47,27 +47,27 @@ nlp = spacy.load("en_core_web_lg")
 
 
 def create_chunks (sentences, doc_chunk_len: int = 484):
-    max_chunk_token_len = doc_chunk_len
+	max_chunk_token_len = doc_chunk_len
 
-    chunks = []
-    current_chunk_tkn_len = 0
-    current_chunk = ""
+	chunks = []
+	current_chunk_tkn_len = 0
+	current_chunk = ""
 
-    for sentence in sentences:
-        word_tkn_len = count_tkn_with_tokenizer(sentence)
+	for sentence in sentences:
+		word_tkn_len = count_tkn_with_tokenizer(sentence)
 
-        if current_chunk_tkn_len + word_tkn_len < max_chunk_token_len:
-            current_chunk += str(sentence + " ")
-            current_chunk_tkn_len += word_tkn_len
-        else:
-            chunks.append(current_chunk.strip())
-            current_chunk = str(sentence + " ")
-            current_chunk_tkn_len = word_tkn_len
+		if current_chunk_tkn_len + word_tkn_len < max_chunk_token_len:
+			current_chunk += str(sentence + " ")
+			current_chunk_tkn_len += word_tkn_len
+		else:
+			chunks.append(current_chunk.strip())
+			current_chunk = str(sentence + " ")
+			current_chunk_tkn_len = word_tkn_len
 
-    if current_chunk:
-        chunks.append(current_chunk.strip())
+	if current_chunk:
+		chunks.append(current_chunk.strip())
 
-    return chunks
+	return chunks
 
 
 import os
@@ -76,16 +76,16 @@ import os
 # 	"Mixtral":"mixtral-8x7b-32768"
 # }
 models = {
-    "Distil-Whisper English": "distil-whisper-large-v3-en",
-    "Gemma 2 9B": "gemma2-9b-it",
-    "Gemma 7B": "gemma-7b-it",
-    "Llama 3.1 70B": "llama-3.1-70b-versatile",
-    "Llama 3.1 8B": "llama-3.1-8b-instant",
-    "Llama Guard 3 8B": "llama-guard-3-8b",
-    "Llama 3 70B": "llama3-70b-8192",
-    "Llama 3 8B": "llama3-8b-8192",
-    "Mixtral 8x7B": "mixtral-8x7b-32768",
-    "Whisper": "whisper-large-v3"
+	"Distil-Whisper English": "distil-whisper-large-v3-en",
+	"Gemma 2 9B": "gemma2-9b-it",
+	"Gemma 7B": "gemma-7b-it",
+	"Llama 3.1 70B": "llama-3.1-70b-versatile",
+	"Llama 3.1 8B": "llama-3.1-8b-instant",
+	"Llama Guard 3 8B": "llama-guard-3-8b",
+	"Llama 3 70B": "llama3-70b-8192",
+	"Llama 3 8B": "llama3-8b-8192",
+	"Mixtral 8x7B": "mixtral-8x7b-32768",
+	"Whisper": "whisper-large-v3"
 }
 
 import re
@@ -119,9 +119,61 @@ def processChunks(full_text,model_num,test):
 
 	return ret
 
+cases=['MANU_SC_2002_0189', 'MANU_SC_1975_0304', 'MANU_SC_2000_0046', 'MANU_SC_1997_0157', 'MANU_SC_2012_0311', 'MANU_SC_1985_0039', 'MANU_SC_1978_0139', 'MANU_SC_2003_0234', 'MANU_SC_2008_3096', 'MANU_SC_1993_0333', 'MANU_SC_1983_0382', 'MANU_SC_2015_0329', 'MANU_SC_2006_0399', 'MANU_SC_1980_0075', 'MANU_SC_1978_0133', 'MANU_SC_2014_0043', 'MANU_SC_2010_0325', 'MANU_SC_1995_0290', 'MANU_SC_1967_0029', 'MANU_SC_2013_0687', 'MANU_SC_1986_0716', 'MANU_SC_2002_1141', 'MANU_SC_1997_0261', 'MANU_SC_2011_0176', 'MANU_SC_2002_0394']
+def readFile(case,language):
+	case_root=os.path.join(settings.MEDIA_ROOT, "files")
+	# Construct the filename
+	filename = f"Summ_{language}.txt"
+	
+	# Construct the full file path
+	file_path = os.path.join(case_root, case,filename)
+	
+	# Read the contents of the file
+	try:
+		with open(file_path, 'r') as file:
+			content = file.read()
+	except FileNotFoundError:
+		# Handle the case where the file does not exist
+		content = None
+	except Exception as e:
+		# Handle any other exceptions
+		content = None
+		print(f"An error occurred: {e}")
+	
+	return content
 
 def home(request):
+	# context={"output":"","input":"","form_submitted":False,"language":"English","model":"Llama 3 8B","modelname":models["Llama 3 8B"]}
+	context={"output":"","input":"","form_submitted":False,"language":"English","selected_case":cases[0],"cases":cases}
+	if request.method == 'POST':
+		print(request.POST)
+		print(request.FILES)
+		test = request.GET.get('test', 'false')  # Default to 'false' if not provided
+		test = True if test=='true' else False
+		print("post received",test)
+		case_num=request.POST["case"]
+		lang=request.POST["language"]
+		error=None
+		if case_num not in cases:
+			error="Invalid case selection"
+			ret=readFile(case_num,lang)
+			context={"success":True,"output":ret,"input":request.POST.get("input_text"),"form_submitted":True,"language":request.POST["language"],"selected_case":case_num,"cases":cases}
+			# return redirect('/?submitted=True')
+			return render(request, 'home-1.html',context=context)
+		else:
+			context={"success":False,"error":error,"input":request.POST.get("input_text"),"form_submitted":True,"language":request.POST["language"],"model":case_num,"modelname":cases}
+			# return redirect('/?submitted=True')
+			return render(request, 'home-1.html',context=context)
+	else:
+		# submitted = request.GET.get('submitted',False)
+		# context["form_submitted"]=submitted
+		# print("submitted",submitted,context)
+		
+		return render(request, 'home-1.html',context=context)
+
+def home1(request):
 	context={"output":"","input":"","form_submitted":False,"language":"English","model":"Llama 3 8B","modelname":models["Llama 3 8B"]}
+	# context={"output":"","input":"","form_submitted":False,"language":"English","selected_case":cases[0],"cases":cases}
 	if request.method == 'POST':
 		print(request.POST)
 		print(request.FILES)
@@ -208,3 +260,8 @@ def home(request):
 		return render(request, 'home-1.html',context=context)
 
 	# print(ret)
+
+
+
+
+	

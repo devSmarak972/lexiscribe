@@ -492,27 +492,28 @@
                                                 {% csrf_token %}
 
                                              <section class="elementor-section elementor-inner-section elementor-element elementor-element-3c23cfa elementor-section-full_width elementor-section-height-default elementor-section-height-default">
+                                               {% comment %}
                                                 <div class="elementor-widget-container">
                                                    <div class=" ">
                                                       <div class="flex flex-wrap m-auto text-center space-between wdt-heading-subtitle-wrapper wdt-heading-align-center ">
                                                          <div class="select-box m-auto">
-                                                         <div class="wdt-heading-subtitle text-center text-xl text-bold" >Language Selection</div>
-                                                         <div class="min-w-52 relative my-4 mx-auto text-center md:text-left">
-                                                            <!-- Dropdown Button -->
-                                                            <button id="dropdownButton" class="w-full dropdownButton text-white px-4 py-2 rounded-md focus:outline-none">
-                                                               Language 
-                                                               <span id="selected-lang" class="mx-2 ms-4 p-2 bg-primary-color text-white text-xs rounded-xl">{{language}}</span>
-                                                                  <img src="{% static 'images/arrow-down.png' %}"/>
-                                                                  <div id="dropdownMenu" class="dropdownMenu absolute mt-2 w-48 bg-white border rounded-md shadow-lg hidden">
-                                                                     <div class="english lang-option option flex px-4 py-2 text-gray-800  space-between {% if language == 'English' %}active{% endif %}" data-value="English">English <img src="{% static 'images/english.png' %}"/></div>
-                                                                     <div class="bengali lang-option option flex px-4 py-2 text-gray-800 space-between {% if language == 'Bengali' %}active{% endif %}" data-value="Bengali">Bengali <img src="{% static 'images/bangla.png' %}"/></div>
-                                                                     <div class="hindi lang-option option flex px-4 py-2 text-gray-800 space-between {% if language == 'Hindi' %}active{% endif %}" data-value="Hindi">Hindi <img src="{% static 'images/hindi.png' %}"/></div>
-                                                                     </div>
-                                                               </button>
-                                                      
-                                                               <!-- Dropdown Menu -->
-                                                                  <input type="text" value="{{language}}" id="lang_form" name="language" style="display:None;visibility:hidden" />
-                                                            </div>
+                                                            <div class="wdt-heading-subtitle text-center text-xl text-bold" >Language Selection</div>
+                                                            <div class="min-w-52 relative my-4 mx-auto text-center md:text-left">
+                                                               <!-- Dropdown Button -->
+                                                               <button id="dropdownButton" class="w-full dropdownButton text-white px-4 py-2 rounded-md focus:outline-none">
+                                                                  Language 
+                                                                  <span id="selected-lang" class="mx-2 ms-4 p-2 bg-primary-color text-white text-xs rounded-xl">{{language}}</span>
+                                                                     <img src="{% static 'images/arrow-down.png' %}"/>
+                                                                     <div id="dropdownMenu" class="dropdownMenu absolute mt-2 w-48 bg-white border rounded-md shadow-lg hidden">
+                                                                        <div class="english lang-option option flex px-4 py-2 text-gray-800  space-between {% if language == 'English' %}active{% endif %}" data-value="English">English <img src="{% static 'images/english.png' %}"/></div>
+                                                                        <div class="bengali lang-option option flex px-4 py-2 text-gray-800 space-between {% if language == 'Bengali' %}active{% endif %}" data-value="Bengali">Bengali <img src="{% static 'images/bangla.png' %}"/></div>
+                                                                        <div class="hindi lang-option option flex px-4 py-2 text-gray-800 space-between {% if language == 'Hindi' %}active{% endif %}" data-value="Hindi">Hindi <img src="{% static 'images/hindi.png' %}"/></div>
+                                                                        </div>
+                                                                  </button>
+                                                         
+                                                                  <!-- Dropdown Menu -->
+                                                                     <input type="text" value="{{language}}" id="lang_form" name="language" style="display:None;visibility:hidden" />
+                                                               </div>
                                                          </div>
                                                          <div class="select-box m-auto">
                                                             <div class="wdt-heading-subtitle text-center text-xl text-bold">Model Selection</div>
@@ -523,25 +524,18 @@
                                                                   <span id="selected-model" class="mx-2 ms-4 p-2 bg-primary-color text-white text-xs rounded-xl">{{model}}</span>
                                                                   <img src="{% static 'images/arrow-down.png' %}"/>
                                                                   <div id="dropdownMenuModel" class="dropdownMenu absolute mt-2 w-48 bg-white border rounded-md shadow-lg hidden">
-                                                                     {% comment %} <div class="model-option option flex px-4 py-2 whitespace-nowrap {% if model == 'Distil-Whisper English' %}active{% endif %} text-gray-800 space-between" data-model="Distil-Whisper English" data-modelname="distil-whisper-large-v3-en">Distil-Whisper English</div> {% endcomment %}
 
-                                                                     {% comment %} <div class="model-option option flex px-4 py-2 whitespace-nowrap {% if model == 'Gemma 2 9B' %}active{% endif %} text-gray-800 space-between" data-model="Gemma 2 9B" data-modelname="gemma2-9b-it">Gemma 2 9B</div> {% endcomment %}
                                                                      
                                                                      <div class="model-option option flex px-4 py-2 whitespace-nowrap {% if model == 'Gemma 7B' %}active{% endif %} text-gray-800 space-between" data-model="Gemma 7B" data-modelname="gemma-7b-it">Gemma 7B</div>
                                                                                                                                                                                                                
-                                                                     {% comment %} <div class="model-option option flex px-4 py-2 whitespace-nowrap {% if model == 'Llama 3.1 70B' %}active{% endif %} text-gray-800 space-between" data-model="Llama 3.1 70B" data-modelname="llama-3.1-70b-versatile">Llama 3.1 70B</div> {% endcomment %}
                                                                      
-                                                                     {% comment %} <div class="model-option option flex px-4 py-2 whitespace-nowrap {% if model == 'Llama 3.1 8B' %}active{% endif %} text-gray-800 space-between" data-model="Llama 3.1 8B" data-modelname="llama-3.1-8b-instant">Llama 3.1 8B</div> {% endcomment %}
                                                                      
-                                                                     {% comment %} <div class="model-option option flex px-4 py-2 whitespace-nowrap {% if model == 'Llama Guard 3 8B' %}active{% endif %} text-gray-800 space-between" data-model="Llama Guard 3 8B" data-modelname="llama-guard-3-8b">Llama Guard 3 8B</div> {% endcomment %}
-                                                                     
-                                                                     {% comment %} <div class="model-option option flex px-4 py-2 whitespace-nowrap {% if model == 'Llama 3 70B' %}active{% endif %} text-gray-800 space-between" data-model="Llama 3 70B" data-modelname="llama3-70b-8192">Llama 3 70B</div> {% endcomment %}
-                                                                     
+=                                                                     
+=                                                                     
                                                                      <div class="model-option option flex px-4 py-2 whitespace-nowrap {% if model == 'Llama 3 8B' %}active{% endif %} text-gray-800 space-between" data-model="Llama 3 8B" data-modelname="llama3-8b-8192">Llama 3 8B</div>
                                                                      
                                                                      <div class="model-option option flex px-4 py-2 whitespace-nowrap {% if model == 'Mixtral 8x7B' %}active{% endif %} text-gray-800 space-between" data-model="Mixtral 8x7B" data-modelname="mixtral-8x7b-32768">Mixtral 8x7B</div>
                                                                      
-                                                                     {% comment %} <div class="model-option option flex px-4 py-2 whitespace-nowrap {% if model == 'Whisper' %}active{% endif %} text-gray-800 space-between" data-model="Whisper" data-modelname="whisper-large-v3">Whisper</div> {% endcomment %}
                                                                   </div>
                                                                   </button>
                                                       
@@ -550,12 +544,40 @@
                                                                   <input type="text" value="{{model}}" id="model_form" name="model" style="display:None;visibility:hidden" />
                                                             </div>
                                                          </div>
+                                                      </div>
                                                    </div>
-                                             </div>
-                                          </div>
+                                                </div>
+
+                                                {% endcomment %}
+                                                <div class=" relative w-full mx-auto my-8">
+                                                   <!-- Search Bar -->
+                                                   <input 
+                                                     type="text" 
+                                                     id="searchInput" 
+                                                     class="dropdownButton w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                                     placeholder="Search..."
+                                                     style="margin:0px; color: darkslategray;"
+                                                     onkeyup="filterFunction(this)"
+                                                   >
+                                                 
+                                                   <!-- Dropdown -->
+                                                   <div id="case-dropdown" class="dropdownMenu absolute z-10 w-full bg-white border border-gray-300 rounded-md mt-1 hidden" style="overflow-y:scroll">
+                                                      {% for case in cases %}
+                                                      <span data-case="{{case}}" class="{% if selected_case == case %}active {% endif %} block px-4 py-2 text-gray-800 hover:bg-blue-100">{{case}}</span>
+                                                      {% endfor %}
+                                                      {% comment %} <span data-case="test" class="active block px-4 py-2 text-gray-800 hover:bg-blue-100">test</span>
+                                                      <span data-case="test" class="block px-4 py-2 text-gray-800 hover:bg-blue-100">test</span>
+                                                      <span data-case="test" class="block px-4 py-2 text-gray-800 hover:bg-blue-100">test</span>
+                                                      <span data-case="test" class="block px-4 py-2 text-gray-800 hover:bg-blue-100">test</span> {% endcomment %}
+                                                      
+                                                   </div>
+                                                   <input type="text" value="{{selected_case}}" id="case_form" name="case" style="display:None;visibility:hidden" />
+
+
+                                                 </div>
+                                                 
                                           <!-- end of dropdowns -->
-                                                {% comment %} <div class=" w-full flex items-center space-x-4 justify-center">
-                                                   <input type="text" value="1" id="model_form" name="model" style="display:None;visibility:hidden" />
+                                              <div class=" w-full flex items-center space-x-4 justify-center">
                                                    <!-- Left Arrow -->
                                                    <button class="bg-secondary hover:text-gray-700 focus:outline-none" id="left-arrow">
                                                       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -563,10 +585,10 @@
                                                       </svg>
                                                    </button>
                                                    <!-- Tabs Container -->
-                                                   <div class="flex overflow-x-auto hide-scroll-bar space-x-4" id="model_select">
-                                                      <button class="model-form px-4 py-2 whitespace-nowrap {% if model == 1 %}active{% endif %} text-white rounded-lg" data-model="1">Llama 3</button>
-                                                      <button class="model-form px-4 py-2 whitespace-nowrap {% if model == 2 %}active{% endif %} rounded-lg" data-model="2">Mistral</button>
-                                                      
+                                                   <div class="flex overflow-x-auto hide-scroll-bar space-x-4" id="case_select">
+                                                      {% for case in cases %}
+                                                      <button class="case-form px-4 py-2 whitespace-nowrap {% if selected_case == case %}active{% endif %} text-white rounded-lg" data-case="{{case}}">{{case}}</button>
+                                                      {% endfor %}
                                                       <!-- Add as many tabs as needed -->
                                                    </div>
 
@@ -576,29 +598,47 @@
                                                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                                                       </svg>
                                                    </button>
-                                                </div> {% endcomment %}
+                                                </div>  
 
                                                 
                                                 <div class="file-element w-100 flex">
                                                    
                                                    <label for="file-upload" class="" id="file-label">
-                                                     Upload File
+                                                     Download File
                                                    </label>
                                                    <div class="flex-1 bg-transparent mb-4 mt-4 ms-2 text-white p-3" name="filename" id="filename">{% if file_uploaded %}{{file_uploaded}}{% else %}Upload a legal document (Limit: 5MB){% endif %}</div>
 
                                                    <input type="file" name="file_input" id="file-upload" onchange="validateFileSize(this)" hidden/>                                           
                                                 </div>
                                              
-                                             
+                                                <div class="flex flex-wrap m-auto text-center space-between wdt-heading-subtitle-wrapper wdt-heading-align-center ">
+                                                   <div class="select-box m-auto">
+                                                      <div class="min-w-52 relative my-4 mx-auto text-center md:text-left">
+                                                         <!-- Dropdown Button -->
+                                                         <button id="dropdownButton" class="w-full dropdownButton text-white px-4 py-2 rounded-md focus:outline-none">
+                                                            Language 
+                                                            <span id="selected-lang" class="mx-2 ms-4 p-2 bg-primary-color text-white text-xs rounded-xl">{{language}}</span>
+                                                               <img src="{% static 'images/arrow-down.png' %}"/>
+                                                               <div id="dropdownMenu" class="dropdownMenu absolute mt-2 w-48 bg-white border rounded-md shadow-lg hidden">
+                                                                  <div class="english lang-option option flex px-4 py-2 text-gray-800  space-between {% if language == 'English' %}active{% endif %}" data-value="English">English <img src="{% static 'images/english.png' %}"/></div>
+                                                                  <div class="bengali lang-option option flex px-4 py-2 text-gray-800 space-between {% if language == 'Bengali' %}active{% endif %}" data-value="Bengali">Bengali <img src="{% static 'images/bangla.png' %}"/></div>
+                                                                  <div class="hindi lang-option option flex px-4 py-2 text-gray-800 space-between {% if language == 'Hindi' %}active{% endif %}" data-value="Hindi">Hindi <img src="{% static 'images/hindi.png' %}"/></div>
+                                                                  </div>
+                                                            </button>
+                                                   
+                                                            <!-- Dropdown Menu -->
+                                                               <input type="text" value="{{language}}" id="lang_form" name="language" style="display:None;visibility:hidden" />
+                                                         </div>
+                                                   </div>
                                              </section>
                                              <section id="error-section" class="bg-white text-red-600 py-2 w-1/3 my-3 mx-auto text-center" style="display:{% if error %}block{% else %}none{% endif %}">
                                                 <div class="error">{% if error %}{{error}}{% endif %}</div>
                                              </section>
                                              <section id="text-input" class="elementor-section elementor-inner-section elementor-element elementor-element-3c23cfa elementor-section-full_width elementor-section-height-default elementor-section-height-default animated fadeInRight" data-id="3c23cfa" data-element_type="section">
                                                 <div class="flex flex-wrap md:flex-nowrap gap-2">
-                                                   <div id="input" class="input-section w-full md:w-1/2 mx-2 mb-2">
+                                                   {% comment %} <div id="input" class="input-section w-full md:w-1/2 mx-2 mb-2">
                                                       <textarea class="text-gray-500 w-full p-3 h-60" placeholder="Write the legal document" rows="10" name="input_text" id="input_text">{{input}}</textarea>
-                                                   </div>
+                                                   </div> {% endcomment %}
                                                    <div  id="output" class="input-section w-full md:w-1/2 mx-2">
                                                       <div class="test"></div>
                                                       <textarea class="text-gray-500 w-full p-3 h-60" placeholder="Generated Summary appears here" name="output_text" id="output_text" readonly style="overflow:auto">{% if output %}{{output}}{% else %}Generated Summary appears here{% endif %}</textarea>
@@ -1844,23 +1884,25 @@
         <div id="yt_article_summary_close_button" class="yt_article_summary_close_button">×</div>
     </div></body>
 <script>
-{% comment %} const leftArrow = document.getElementById('left-arrow');
+const leftArrow = document.getElementById('left-arrow');
 const rightArrow = document.getElementById('right-arrow');
 const tabsContainer = document.querySelector('.overflow-x-auto');
 
-leftArrow.addEventListener('click', () => {
-  tabsContainer.scrollBy({
-    left: -150,  // Adjust the scroll distance as needed
-    behavior: 'smooth'
-  });
+leftArrow.addEventListener('click', (e) => {
+   e.preventDefault();
+   tabsContainer.scrollBy({
+      left: -150,  // Adjust the scroll distance as needed
+      behavior: 'smooth'
+   });
 });
 
-rightArrow.addEventListener('click', () => {
+rightArrow.addEventListener('click', (e) => {
+   e.preventDefault();
   tabsContainer.scrollBy({
     left: 150,  // Adjust the scroll distance as needed
     behavior: 'smooth'
   });
-}); {% endcomment %}
+}); 
 
 {% comment %} const langs=document.querySelector(".lang-section");
 const all=langs.querySelectorAll('.lang-box');
@@ -1885,7 +1927,32 @@ all.forEach(div => {
    });
 }); {% endcomment %}
 
-{% comment %} all_models.forEach(div => {
+const all_cases=document.querySelectorAll(".case-form");
+const caseddown=document.querySelectorAll(".case-dropdown span");
+all_cases.forEach(div => {
+   div.addEventListener('click', (event) => {
+      // Determine which div was clicked
+      event.preventDefault();
+      all_cases.forEach((e)=>{
+         e.classList.remove("active");
+      })
+      caseddown.forEach((e)=>{
+         if(e.dataset.case!=event.currentTarget.dataset.case)
+         e.classList.remove("active");
+         else
+         e.classList.add("active");
+      })
+      event.currentTarget.classList.add("active");
+      
+      document.querySelector("#case_form").value=event.currentTarget.dataset.case;
+      console.log("clicked on: ",event.currentTarget.innerText);
+   
+      // Prevent event from propagating to child elements
+      event.stopPropagation();
+   });
+});
+{% comment %} const all_models=document.querySelectorAll(".model-form");
+all_models.forEach(div => {
    div.addEventListener('click', (event) => {
       // Determine which div was clicked
       event.preventDefault();
@@ -1912,6 +1979,7 @@ upload.addEventListener("change",(event)=>{
 
    // Toggle the dropdown menu
    const dropdownButtons = document.querySelectorAll('.dropdownButton');
+   console.log(dropdownButtons)
    dropdownButtons.forEach(dropdownButton=>{
       dropdownButton.addEventListener('click', (e) => {
          e.preventDefault();
@@ -1924,9 +1992,9 @@ upload.addEventListener("change",(event)=>{
    
    window.addEventListener('click', (e) => {
       dropdownButtons.forEach(dropdownButton=>{
-         
          if (!dropdownButton.contains(e.target)) {
             const dropdownMenu = dropdownButton.parentNode.querySelector('.dropdownMenu');
+            //console.log(dropdownButton.contains(e.target),e.target,dropdownButton)
              dropdownMenu.classList.add('hidden');
          }
       })
@@ -1956,10 +2024,10 @@ upload.addEventListener("change",(event)=>{
    });
    const models=document.querySelector("#dropdownButtonModel");
    console.log(models)
-const all_models=models.querySelectorAll('.model-option');
+{% comment %} const all_models=models.querySelectorAll('.model-option'); {% endcomment %}
 {% comment %} const all_models=models.querySelectorAll('button'); {% endcomment %}
-console.log(all_models);
-   document.querySelectorAll(".model-option").forEach((e)=>{
+{% comment %} console.log(all_models); {% endcomment %}
+   {% comment %} document.querySelectorAll(".model-option").forEach((e)=>{
       console.log(e,"model option");
       e.addEventListener("click",(event)=>{
          document.querySelectorAll(".model-option").forEach((obj)=>{
@@ -1978,7 +2046,7 @@ console.log(all_models);
          console.log("clicked on: ",event.currentTarget.dataset.model);
          document.querySelector("#selected-model").innerText=event.currentTarget.dataset.model;
       })
-   });
+   }); {% endcomment %}
       function validateFileSize(input) {
           const file = input.files[0];
           const maxSizeMB = 5;  // Maximum file size in MB
@@ -2004,10 +2072,52 @@ console.log(all_models);
           const submitButton = form.querySelector('button[type="submit"]');
           submitButton.disabled = true;
       });
-
-</script>
-
-{% if form_submitted %}
+      
+      const input = document.getElementById("searchInput");
+      console.log("here")
+      function filterFunction(event) {
+         const filter = input.value.toLowerCase();
+         const dropdown = document.getElementById("case-dropdown");
+         const options = dropdown.getElementsByTagName("span");
+         console.log("filter function",dropdown)
+         // Show the dropdown when input is not empty
+         dropdown.classList.toggle("hidden");
+       
+         // Loop through all dropdown items, and hide those that don't match the search query
+         for (let i = 0; i < options.length; i++) {
+            const txtValue = options[i].dataset.case || options[i].innerText;
+            console.log(txtValue,filter)
+           if (txtValue.toLowerCase().includes(filter)) {
+              options[i].style.display = "";
+           } else {
+              options[i].style.display = "none";
+           }
+         }
+      }
+       
+      input.addEventListener("click",function (event) {
+         const filter = input.value.toLowerCase();
+         const dropdown = document.getElementById("case-dropdown");
+         const options = dropdown.getElementsByTagName("a");
+         console.log("filter",dropdown)
+         // Show the dropdown when input is not empty
+         dropdown.classList.remove("hidden");
+       
+         // Loop through all dropdown items, and hide those that don't match the search query
+         for (let i = 0; i < options.length; i++) {
+            const txtValue = options[i].dataset.case || options[i].innerText;
+            console.log(txtValue,filter)
+           if (txtValue.toLowerCase().includes(filter)) {
+              options[i].style.display = "";
+           } else {
+              options[i].style.display = "none";
+           }
+         }
+      });
+      
+   </script>
+   
+   {% if form_submitted %}
 <script>
     // Scroll to the section after the form is submitted
     //window.location.hash = 'text-input';
@@ -2019,7 +2129,6 @@ console.log(all_models);
       });
   
 
-   
 </script>
 {% endif %}
 </html>
