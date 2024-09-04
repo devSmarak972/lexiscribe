@@ -8,7 +8,7 @@ from reportlab.pdfbase import pdfmetrics
 import os
 MAX_TOKENS=500
 from nltk.tokenize import word_tokenize,sent_tokenize
-from .indicTrans import initialize_model_and_tokenizer, batch_translate
+# from .indicTrans import initialize_model_and_tokenizer, batch_translate
 from .cleanJudgement import clean_judgment
 quantization = None
 model_id = "ai4bharat/indictrans2-en-indic-1B"  # ai4bharat/indictrans2-en-indic-dist-200M
