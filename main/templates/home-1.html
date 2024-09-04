@@ -549,19 +549,19 @@
                                                 </div>
 
                                                 {% endcomment %}
-                                                <div class=" relative w-full mx-auto my-8">
+                                                <div class=" relative w-full mx-auto my-8" >
                                                    <!-- Search Bar -->
                                                    <input 
                                                      type="text" 
                                                      id="searchInput" 
                                                      class="dropdownButton w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                                     placeholder="Search..."
+                                                     placeholder="Search for the case.."
                                                      style="margin:0px; color: darkslategray;"
-                                                     onkeyup="filterFunction(this)"
+                                                     oninput="filterFunction(this)"
                                                    >
                                                  
                                                    <!-- Dropdown -->
-                                                   <div id="case-dropdown" class="dropdownMenu absolute z-10 w-full bg-white border border-gray-300 rounded-md mt-1 hidden" style="overflow-y:scroll">
+                                                   <div id="case-dropdown" class="dropdownMenu absolute z-10 w-full bg-white border border-gray-300 rounded-md mt-1 hidden" style="overflow-y: scroll;max-height: 500px;">
                                                       {% for case in cases %}
                                                       <span data-case="{{case}}" class="{% if selected_case == case %}active {% endif %} block px-4 py-2 text-gray-800 hover:bg-blue-100">{{case}}</span>
                                                       {% endfor %}
@@ -587,7 +587,7 @@
                                                    <!-- Tabs Container -->
                                                    <div class="flex overflow-x-auto hide-scroll-bar space-x-4" id="case_select">
                                                       {% for case in cases %}
-                                                      <button class="case-form px-4 py-2 whitespace-nowrap {% if selected_case == case %}active{% endif %} text-white rounded-lg" data-case="{{case}}">{{case}}</button>
+                                                      <button class="{% if selected_case == case %}active{% endif %} case-form px-4 py-2 whitespace-nowrap text-white rounded-lg" data-case="{{case}}">{{case}}</button>
                                                       {% endfor %}
                                                       <!-- Add as many tabs as needed -->
                                                    </div>
@@ -601,15 +601,7 @@
                                                 </div>  
 
                                                 
-                                                <div class="file-element w-100 flex">
-                                                   
-                                                   <label for="file-upload" class="" id="file-label">
-                                                     Download File
-                                                   </label>
-                                                   <div class="flex-1 bg-transparent mb-4 mt-4 ms-2 text-white p-3" name="filename" id="filename">{% if file_uploaded %}{{file_uploaded}}{% else %}Upload a legal document (Limit: 5MB){% endif %}</div>
-
-                                                   <input type="file" name="file_input" id="file-upload" onchange="validateFileSize(this)" hidden/>                                           
-                                                </div>
+                                               
                                              
                                                 <div class="flex flex-wrap m-auto text-center space-between wdt-heading-subtitle-wrapper wdt-heading-align-center ">
                                                    <div class="select-box m-auto">
@@ -631,27 +623,44 @@
                                                          </div>
                                                    </div>
                                              </section>
+                                             
                                              <section id="error-section" class="bg-white text-red-600 py-2 w-1/3 my-3 mx-auto text-center" style="display:{% if error %}block{% else %}none{% endif %}">
                                                 <div class="error">{% if error %}{{error}}{% endif %}</div>
                                              </section>
                                              <section id="text-input" class="elementor-section elementor-inner-section elementor-element elementor-element-3c23cfa elementor-section-full_width elementor-section-height-default elementor-section-height-default animated fadeInRight" data-id="3c23cfa" data-element_type="section">
+                                                {% if form_submitted and success %}
+                                                <div class="file-element w-full flex ">
+                                                   <div class="w-full md:w-5/6 mx-auto">
+                                                   <a href="{% url 'download_pdf' case=selected_case language=language %}"><div class="mx-5 mx-auto" id="file-label">
+                                                   Download File
+                                                   </div>
+                                                   </a>
+                                                   </div>
+                                                   {% comment %} <div class="flex-1 bg-transparent mb-4 mt-4 ms-2 text-white p-3" name="filename" id="filename">{% if file_uploaded %}{{file_uploaded}}{% else %}Upload a legal document (Limit: 5MB){% endif %}</div> {% endcomment %}
+                                                   
+                                                   {% comment %} <input type="file" name="file_input" id="file-upload" onchange="validateFileSize(this)" hidden/>                                            {% endcomment %}
+                                                </div>
+                                             {% endif %}
+                                                
                                                 <div class="flex flex-wrap md:flex-nowrap gap-2">
                                                    {% comment %} <div id="input" class="input-section w-full md:w-1/2 mx-2 mb-2">
                                                       <textarea class="text-gray-500 w-full p-3 h-60" placeholder="Write the legal document" rows="10" name="input_text" id="input_text">{{input}}</textarea>
                                                    </div> {% endcomment %}
-                                                   <div  id="output" class="input-section w-full md:w-1/2 mx-2">
+                                                   <div  id="output" class="input-section w-full md:w-5/6 mx-auto">
                                                       <div class="test"></div>
-                                                      <textarea class="text-gray-500 w-full p-3 h-60" placeholder="Generated Summary appears here" name="output_text" id="output_text" readonly style="overflow:auto">{% if output %}{{output}}{% else %}Generated Summary appears here{% endif %}</textarea>
+                                                      <textarea class="text-gray-500 w-full p-3" placeholder="Generated Summary appears here" name="output_text" id="output_text" readonly style="overflow:scroll; max-height:50rem;  min-height: 25rem;">{% if output %}{{output}}{% else %}Generated Summary appears here{% endif %}</textarea>
                                                    </div>
                                                 </div>
                                              </section>
                                              <div class="flex">
-                                             <button  type="submit" class="submit-btn px-4 py-2 whitespace-nowrap active text-white rounded-lg my-2">Submit</button>
-                                             <div class="loader-container" style="display:none;">
-                                                <div class="text-2xl px-6 loader my-auto">
-                                                   <i class="fas fa-spinner fa-spin loader"></i>
-                                                </div>
-                                            </div>
+                                             <button  type="submit" class="submit-btn px-4 py-2 whitespace-nowrap active text-white rounded-lg my-2 mx-auto">Submit
+                                                <div class="loader-container" style="display:none;">
+                                                   <div class="text-2xl ps-6 loader my-auto">
+                                                      <i class="fas fa-spinner fa-spin loader"></i>
+                                                   </div>
+                                               </div>
+                                             </button>
+                                             
                                             </div>
                                           </form>
                                           </div>
@@ -1928,13 +1937,18 @@ all.forEach(div => {
 }); {% endcomment %}
 
 const all_cases=document.querySelectorAll(".case-form");
-const caseddown=document.querySelectorAll(".case-dropdown span");
+const caseddown=document.querySelectorAll("#case-dropdown span");
 all_cases.forEach(div => {
    div.addEventListener('click', (event) => {
       // Determine which div was clicked
       event.preventDefault();
       all_cases.forEach((e)=>{
+         if(e.dataset.case!=event.currentTarget.dataset.case)
          e.classList.remove("active");
+         else
+         {
+         e.classList.add("active");
+         }
       })
       caseddown.forEach((e)=>{
          if(e.dataset.case!=event.currentTarget.dataset.case)
@@ -1945,8 +1959,42 @@ all_cases.forEach(div => {
       event.currentTarget.classList.add("active");
       
       document.querySelector("#case_form").value=event.currentTarget.dataset.case;
-      console.log("clicked on: ",event.currentTarget.innerText);
+      document.querySelector("#searchInput").value=event.currentTarget.dataset.case;
+      console.log("clicked on: ",event.currentTarget.dataset.case);
    
+      // Prevent event from propagating to child elements
+      event.stopPropagation();
+   });
+});
+caseddown.forEach(div => {
+   div.addEventListener('click', (event) => {
+      // Determine which div was clicked
+      event.preventDefault();
+      all_cases.forEach((e)=>{
+         if(e.dataset.case!=event.currentTarget.dataset.case)
+         e.classList.remove("active");
+         else
+         {
+         e.classList.add("active");
+         }
+      })
+      caseddown.forEach((e)=>{
+         if(e.dataset.case!=event.currentTarget.dataset.case)
+         e.classList.remove("active");
+         else
+         {
+         e.classList.add("active");
+        // console.log("added active",e.dataset.case)
+         }
+      })
+      event.currentTarget.classList.add("active");
+      
+      document.querySelector("#case_form").value=event.currentTarget.dataset.case;
+      console.log("clicked on: ",event.currentTarget.dataset.case);
+      document.querySelector("#searchInput").value=event.currentTarget.dataset.case;
+      const dropdownMenu = document.querySelector('#case-dropdown');
+      //console.log(dropdownButton.contains(e.target),e.target,dropdownButton)
+       dropdownMenu.classList.add('hidden');
       // Prevent event from propagating to child elements
       event.stopPropagation();
    });
@@ -1968,14 +2016,14 @@ all_models.forEach(div => {
       event.stopPropagation();
    });
 }); {% endcomment %}
-const upload=document.querySelector("#file-upload");
+{% comment %} const upload=document.querySelector("#file-upload");
 upload.addEventListener("change",(event)=>{
    console.log(event.target.files);
    if(event.target.files.length >0)
    {
       const filename=document.querySelector("#filename").innerText=event.target.files[0].name;
    }
-})
+}) {% endcomment %}
 
    // Toggle the dropdown menu
    const dropdownButtons = document.querySelectorAll('.dropdownButton');
@@ -2065,7 +2113,7 @@ upload.addEventListener("change",(event)=>{
       const form=document.querySelector('form');
       form.addEventListener('submit', function(event) {
           // Show the loader when the form is submitted
-          console.log("here\n")
+          //console.log("here\n")
           loaderContainer.style.display = 'flex';
           // Optionally: Prevent the form from being submitted multiple times
           // by disabling the submit button
@@ -2079,9 +2127,9 @@ upload.addEventListener("change",(event)=>{
          const filter = input.value.toLowerCase();
          const dropdown = document.getElementById("case-dropdown");
          const options = dropdown.getElementsByTagName("span");
-         console.log("filter function",dropdown)
+         //console.log("filter function",dropdown)
          // Show the dropdown when input is not empty
-         dropdown.classList.toggle("hidden");
+         dropdown.classList.remove("hidden");
        
          // Loop through all dropdown items, and hide those that don't match the search query
          for (let i = 0; i < options.length; i++) {
@@ -2099,15 +2147,15 @@ upload.addEventListener("change",(event)=>{
          const filter = input.value.toLowerCase();
          const dropdown = document.getElementById("case-dropdown");
          const options = dropdown.getElementsByTagName("a");
-         console.log("filter",dropdown)
+        // console.log("filter",dropdown)
          // Show the dropdown when input is not empty
          dropdown.classList.remove("hidden");
        
          // Loop through all dropdown items, and hide those that don't match the search query
          for (let i = 0; i < options.length; i++) {
             const txtValue = options[i].dataset.case || options[i].innerText;
-            console.log(txtValue,filter)
-           if (txtValue.toLowerCase().includes(filter)) {
+           // console.log(txtValue,filter)
+           if (txtValue.toLowerCase().includes(filter) ||filter=="") {
               options[i].style.display = "";
            } else {
               options[i].style.display = "none";

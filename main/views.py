@@ -3,6 +3,8 @@ from groq import Groq
 from legal_text import settings
 from django.core.files.storage import FileSystemStorage
 from pypdf import PdfReader
+from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.pdfbase import pdfmetrics
 import os
 MAX_TOKENS=500
 from nltk.tokenize import word_tokenize,sent_tokenize
@@ -16,7 +18,17 @@ language_setting={
 	"Hindi":"hin_Deva",
 	"Bengali":"ben_Beng",
 }
-
+from reportlab.lib.pagesizes import letter
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.lib.units import inch
+from reportlab.lib import colors
+from reportlab.lib.enums import TA_JUSTIFY
+from reportlab.lib.fonts import tt2ps
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
+from reportlab.pdfgen import canvas
+from django.conf import settings
+from django.http import HttpResponse
+from django.core.files.storage import default_storage
 def split_text_into_sentences(text):
 	sentences = sent_tokenize(text)
 	return sentences
@@ -35,7 +47,63 @@ def split_text_into_sentences(text):
 # 	return ret
 
 
+def createPDF(case,language,content):
+	# Define the filename for the PDF
+	pdf_filename = f"{case}_{language}.pdf"
+	pdf_path = os.path.join(settings.MEDIA_ROOT, "pdfs", pdf_filename)
 
+	# Ensure the directory exists
+	os.makedirs(os.path.dirname(pdf_path), exist_ok=True)
+
+	# Create a PDF with the content
+	# c = canvas.Canvas(pdf_path, pagesize=letter)
+	width, height = letter
+# Register the fonts
+	pdfmetrics.registerFont(TTFont('Noto-Serif', os.path.join(settings.MEDIA_ROOT,"fonts",'NotoSerif-Regular.ttf')))
+	pdfmetrics.registerFont(TTFont('Noto-Sans-Bengali', os.path.join(settings.MEDIA_ROOT,"fonts",'NotoSansBengali-Regular.ttf')))
+	pdfmetrics.registerFont(TTFont('Noto-Sans-Devanagari', os.path.join(settings.MEDIA_ROOT,"fonts",'NotoSansDevanagari-Regular.ttf')))
+
+	# Add the content to the PDF
+	# text_object = c.beginText(40, height - 40)
+	# Create the PDF document
+	doc = SimpleDocTemplate(pdf_path, pagesize=letter)
+
+	# Get the sample style sheet
+	styles = getSampleStyleSheet()
+ # Optional: Adjust other style properties
+	styles['Normal'].fontSize = 12
+	styles['Normal'].alignment = TA_JUSTIFY  # Justified text
+
+ # Determine the font based on language
+	if language == 'English':
+		# c.setFont('Noto-Serif', 12)
+		styles['Normal'].fontName='Noto-Serif'
+		sep="."
+	elif language == 'Bengali':
+		styles['Normal'].fontName='Noto-Sans-Bengali'
+		# c.setFont('Noto-Sans-Bengali', 12)
+		sep="|"
+	elif language == 'Hindi':
+		styles['Normal'].fontName='Noto-Sans-Hindi'
+		# c.setFont('Noto-Sans-Devanagari', 12)
+		sep="|"
+	
+
+	 # Create a list to hold the PDF elements
+	story = []
+
+	for line in content.split("\n\n"):
+		story.append(Paragraph(line, styles['Normal']))
+		story.append(Spacer(1, 12))  # Add space between paragraphs
+
+		# text_object.textLine(line)
+	doc.build(story)
+
+	# c.drawText(text_object)
+	# c.save()
+
+	# Return the path to the PDF
+	return pdf_filename
 
 def count_tkn_with_tokenizer(txt: str) -> int:
 	return len(word_tokenize(txt))
@@ -118,8 +186,11 @@ def processChunks(full_text,model_num,test):
 	ret=re.sub(r'\n+', '\n', ret)
 
 	return ret
-
-cases=['MANU_SC_2002_0189', 'MANU_SC_1975_0304', 'MANU_SC_2000_0046', 'MANU_SC_1997_0157', 'MANU_SC_2012_0311', 'MANU_SC_1985_0039', 'MANU_SC_1978_0139', 'MANU_SC_2003_0234', 'MANU_SC_2008_3096', 'MANU_SC_1993_0333', 'MANU_SC_1983_0382', 'MANU_SC_2015_0329', 'MANU_SC_2006_0399', 'MANU_SC_1980_0075', 'MANU_SC_1978_0133', 'MANU_SC_2014_0043', 'MANU_SC_2010_0325', 'MANU_SC_1995_0290', 'MANU_SC_1967_0029', 'MANU_SC_2013_0687', 'MANU_SC_1986_0716', 'MANU_SC_2002_1141', 'MANU_SC_1997_0261', 'MANU_SC_2011_0176', 'MANU_SC_2002_0394']
+bad=['MANU_SC_2000_0046','MANU_SC_1978_0139','MANU_SC_2003_0234','MANU_SC_1980_0075','MANU_SC_2014_0043','MANU_SC_2013_0687']
+cases=['MANU_SC_2002_0189', 'MANU_SC_1975_0304', 'MANU_SC_1997_0157', 'MANU_SC_2012_0311', 'MANU_SC_1985_0039', 'MANU_SC_1978_0139', 'MANU_SC_2003_0234', 'MANU_SC_2008_3096', 'MANU_SC_1993_0333', 'MANU_SC_1983_0382', 'MANU_SC_2015_0329', 'MANU_SC_2006_0399', 'MANU_SC_1980_0075', 'MANU_SC_1978_0133', 'MANU_SC_2014_0043', 'MANU_SC_2010_0325', 'MANU_SC_1995_0290', 'MANU_SC_1967_0029', 'MANU_SC_2013_0687', 'MANU_SC_1986_0716', 'MANU_SC_2002_1141', 'MANU_SC_1997_0261', 'MANU_SC_2011_0176', 'MANU_SC_2002_0394']
+for case in bad:
+	if case in cases:
+		cases.remove(case) 
 def readFile(case,language):
 	case_root=os.path.join(settings.MEDIA_ROOT, "files")
 	# Construct the filename
@@ -130,8 +201,10 @@ def readFile(case,language):
 	
 	# Read the contents of the file
 	try:
-		with open(file_path, 'r') as file:
+		with open(file_path, 'r', encoding="utf-8") as file:
 			content = file.read()
+		pdf=createPDF(case,language,content)
+
 	except FileNotFoundError:
 		# Handle the case where the file does not exist
 		content = None
@@ -141,6 +214,24 @@ def readFile(case,language):
 		print(f"An error occurred: {e}")
 	
 	return content
+
+
+from django.http import FileResponse
+from django.urls import reverse
+
+def download_pdf_view(request, case, language):
+	# Generate the PDF file
+	pdf_filename = f"{case}_{language}.pdf"
+	pdf_path = os.path.join(settings.MEDIA_ROOT, "pdfs", pdf_filename)
+
+	if pdf_filename is None:
+		return HttpResponse("Error generating PDF", status=500)
+
+	# Create the file path
+	pdf_path = os.path.join(settings.MEDIA_ROOT, "pdfs", pdf_filename)
+	
+	# Serve the file
+	return FileResponse(open(pdf_path, 'rb'), as_attachment=True, filename=pdf_filename)
 
 def home(request):
 	# context={"output":"","input":"","form_submitted":False,"language":"English","model":"Llama 3 8B","modelname":models["Llama 3 8B"]}
@@ -154,13 +245,14 @@ def home(request):
 		case_num=request.POST["case"]
 		lang=request.POST["language"]
 		error=None
-		if case_num not in cases:
-			error="Invalid case selection"
+		if case_num in cases:
 			ret=readFile(case_num,lang)
+			print(ret,case_num,lang)
 			context={"success":True,"output":ret,"input":request.POST.get("input_text"),"form_submitted":True,"language":request.POST["language"],"selected_case":case_num,"cases":cases}
 			# return redirect('/?submitted=True')
 			return render(request, 'home-1.html',context=context)
 		else:
+			error="Invalid case selection"
 			context={"success":False,"error":error,"input":request.POST.get("input_text"),"form_submitted":True,"language":request.POST["language"],"model":case_num,"modelname":cases}
 			# return redirect('/?submitted=True')
 			return render(request, 'home-1.html',context=context)

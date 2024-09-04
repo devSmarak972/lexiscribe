@@ -7,3 +7,4 @@ nltk
 sentencepiece
 transformers
 torch
+reportlab
