@@ -7,7 +7,7 @@ from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfbase import pdfmetrics
 import os
 MAX_TOKENS=500
-from nltk.tokenize import word_tokenize,sent_tokenize
+# from nltk.tokenize import word_tokenize,sent_tokenize
 # from .indicTrans import initialize_model_and_tokenizer, batch_translate
 from .cleanJudgement import clean_judgment
 quantization = None
@@ -17,7 +17,14 @@ en_indic_ckpt_dir=settings.MODEL_DIR
 language_setting={
 	"Hindi":"hin_Deva",
 	"Bengali":"ben_Beng",
+	"Assamese":"asm_Beng",
+	"Nepali":"npi_Deva",
+	"Bodo":"brx_Deva",
+	"Manipuri":"mni_Beng",
+	# "Manipuri (Meitei)":"mni_Mtei"
 }
+code_to_lang = {v: k for k, v in language_setting.items()}
+
 from reportlab.lib.pagesizes import letter
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.units import inch
@@ -46,72 +53,114 @@ def split_text_into_sentences(text):
 # 		ret+=translation+" "
 # 	return ret
 
+from fpdf import FPDF
+import os
 
-def createPDF(case,language,content):
-	# Define the filename for the PDF
-	pdf_filename = f"{case}_{language}.pdf"
-	pdf_path = os.path.join(settings.MEDIA_ROOT, "pdfs", pdf_filename)
+def createPDF(case, language, content):
+    # Define the filename for the PDF
+    pdf_filename = f"{case}_{language}.pdf"
+    pdf_path = os.path.join(settings.MEDIA_ROOT, "pdfs", pdf_filename)
 
-	# Ensure the directory exists
-	os.makedirs(os.path.dirname(pdf_path), exist_ok=True)
+    # Ensure the directory exists
+    os.makedirs(os.path.dirname(pdf_path), exist_ok=True)
 
-	# Create a PDF with the content
-	# c = canvas.Canvas(pdf_path, pagesize=letter)
-	width, height = letter
-# Register the fonts
-	pdfmetrics.registerFont(TTFont('Noto-Serif', os.path.join(settings.MEDIA_ROOT,"fonts",'NotoSerif-Regular.ttf')))
-	pdfmetrics.registerFont(TTFont('Noto-Sans-Bengali', os.path.join(settings.MEDIA_ROOT,"fonts",'NotoSansBengali-Regular.ttf')))
-	pdfmetrics.registerFont(TTFont('Noto-Sans-Devanagari', os.path.join(settings.MEDIA_ROOT,"fonts",'NotoSansDevanagari-Regular.ttf')))
+    # Create a PDF instance
+    pdf = FPDF()
+    pdf.add_page()
 
-	# Add the content to the PDF
-	# text_object = c.beginText(40, height - 40)
-	# Create the PDF document
-	doc = SimpleDocTemplate(pdf_path, pagesize=letter)
+    # Register and set the font based on the language
+    if language == 'English':
+        # Set the English font
+        pdf.add_font('NotoSerif', '', os.path.join(settings.MEDIA_ROOT, "fonts", 'NotoSerif-Regular.ttf'), uni=True)
+        pdf.set_font('NotoSerif', '', 12)
+        sep = "."
+    elif language == 'Bengali':
+        # Set the Bengali font
+        pdf.add_font('NotoSansBengali', '', os.path.join(settings.MEDIA_ROOT, "fonts", 'NotoSansBengali-Regular.ttf'), uni=True)
+        pdf.set_font('NotoSansBengali', '', 12)
+        sep = "|"
+    elif language == 'Hindi':
+        # Set the Hindi font
+        pdf.add_font('NotoSansDevanagari', '', os.path.join(settings.MEDIA_ROOT, "fonts", 'NotoSansDevanagari-Regular.ttf'), uni=True)
+        pdf.set_font('NotoSansDevanagari', '', 12)
+        sep = "|"
+    
+    # Process the content and add it to the PDF
+    for line in content.split("\n\n"):
+        pdf.multi_cell(0, 10, line)
+        pdf.ln(5)  # Add some space between paragraphs
 
-	# Get the sample style sheet
-	styles = getSampleStyleSheet()
- # Optional: Adjust other style properties
-	styles['Normal'].fontSize = 12
-	styles['Normal'].alignment = TA_JUSTIFY  # Justified text
+    # Output the PDF to a file
+    pdf.output(pdf_path)
 
- # Determine the font based on language
-	if language == 'English':
-		# c.setFont('Noto-Serif', 12)
-		styles['Normal'].fontName='Noto-Serif'
-		sep="."
-	elif language == 'Bengali':
-		styles['Normal'].fontName='Noto-Sans-Bengali'
-		# c.setFont('Noto-Sans-Bengali', 12)
-		sep="|"
-	elif language == 'Hindi':
-		styles['Normal'].fontName='Noto-Sans-Hindi'
-		# c.setFont('Noto-Sans-Devanagari', 12)
-		sep="|"
+    # Return the path to the PDF
+    return pdf_filename
+
+# def createPDF(case,language,content):
+# 	# Define the filename for the PDF
+# 	pdf_filename = f"{case}_{language}.pdf"
+# 	pdf_path = os.path.join(settings.MEDIA_ROOT, "pdfs", pdf_filename)
+
+# 	# Ensure the directory exists
+# 	os.makedirs(os.path.dirname(pdf_path), exist_ok=True)
+
+# 	# Create a PDF with the content
+# 	# c = canvas.Canvas(pdf_path, pagesize=letter)
+# 	width, height = letter
+# # Register the fonts
+# 	pdfmetrics.registerFont(TTFont('Noto-Serif', os.path.join(settings.MEDIA_ROOT,"fonts",'NotoSerif-Regular.ttf')))
+# 	pdfmetrics.registerFont(TTFont('Noto-Sans-Bengali', os.path.join(settings.MEDIA_ROOT,"fonts",'NotoSansBengali-Regular.ttf')))
+# 	pdfmetrics.registerFont(TTFont('Noto-Sans-Devanagari', os.path.join(settings.MEDIA_ROOT,"fonts",'NotoSansDevanagari-Regular.ttf')))
+
+# 	# Add the content to the PDF
+# 	# text_object = c.beginText(40, height - 40)
+# 	# Create the PDF document
+# 	doc = SimpleDocTemplate(pdf_path, pagesize=letter)
+
+# 	# Get the sample style sheet
+# 	styles = getSampleStyleSheet()
+#  # Optional: Adjust other style properties
+# 	styles['Normal'].fontSize = 12
+# 	styles['Normal'].alignment = TA_JUSTIFY  # Justified text
+
+#  # Determine the font based on language
+# 	if language == 'English':
+# 		# c.setFont('Noto-Serif', 12)
+# 		styles['Normal'].fontName='Noto-Serif'
+# 		sep="."
+# 	elif language == 'Bengali':
+# 		styles['Normal'].fontName='Noto-Sans-Bengali'
+# 		# c.setFont('Noto-Sans-Bengali', 12)
+# 		sep="|"
+# 	elif language == 'Hindi':
+# 		styles['Normal'].fontName='Noto-Sans-Hindi'
+# 		# c.setFont('Noto-Sans-Devanagari', 12)
+# 		sep="|"
 	
 
-	 # Create a list to hold the PDF elements
-	story = []
+# 	 # Create a list to hold the PDF elements
+# 	story = []
 
-	for line in content.split("\n\n"):
-		story.append(Paragraph(line, styles['Normal']))
-		story.append(Spacer(1, 12))  # Add space between paragraphs
+# 	for line in content.split("\n\n"):
+# 		story.append(Paragraph(line, styles['Normal']))
+# 		story.append(Spacer(1, 12))  # Add space between paragraphs
 
-		# text_object.textLine(line)
-	doc.build(story)
+# 		# text_object.textLine(line)
+# 	doc.build(story)
 
-	# c.drawText(text_object)
-	# c.save()
+# 	# c.drawText(text_object)
+# 	# c.save()
 
-	# Return the path to the PDF
-	return pdf_filename
+# 	# Return the path to the PDF
+# 	return pdf_filename
 
 def count_tkn_with_tokenizer(txt: str) -> int:
 	return len(word_tokenize(txt))
 # Load the tokenizer
 
-import spacy
+# import spacy
 # !python -m spacy download en_core_web_lg --quiet
-nlp = spacy.load("en_core_web_lg")
+# nlp = spacy.load("en_core_web_lg")
 
 
 def create_chunks (sentences, doc_chunk_len: int = 484):
@@ -156,6 +205,28 @@ models = {
 	"Whisper": "whisper-large-v3"
 }
 
+
+
+cases={
+	# "MANU_SC_1967_0029":"The Constitution (Forty-Fourth Amendment) Act 1978 and The Constitution (Forty-Fifth Amendment) Act 2002",
+"MANU_SC_1975_0304":"Kesavananda Bharati v. State of Kerala",
+"MANU_SC_1978_0133":"Passport Authority v. Government of India",
+"MANU_SC_1983_0382":"State of Maharashtra vs. The Director General of Police and others",
+"MANU_SC_1985_0039":"Bombay High Court and Supreme Court Judgments on Right to Life and Livelihood",
+"MANU_SC_1986_0716":"K.P. Joseph v. State of Kerala & Ors.",
+"MANU_SC_1993_0333":"TMA Pai Foundation vs. State of Karnataka and Ors. ( implications on Education Regulation and Affiliation)",
+"MANU_SC_1995_0290":"Mohamed Ahmed Khan v. Shah Bano Begum and others",
+"MANU_SC_1997_0157":"Nilabati Behera vs. State of Orissa (1993) and various other cases",
+"MANU_SC_1997_0261":"Tribunals' Competence to Test Constitutional Validity of Statutory Provisions/Rules",
+"MANU_SC_2002_0189":"State of Punjab v. Span Motels Pvt. Ltd",
+"MANU_SC_2002_0394":"Election Commission of India v. Subramanian Swamy",
+"MANU_SC_2002_1141":"Lawyers' Right to Strike: Supreme Court of India",
+"MANU_SC_2006_0399":"President of India & Ors v. Speaker, Bihar Legislative Assembly & Ors.",
+"MANU_SC_2008_3096":"State of Maharashtra v. Bombay High Court",
+"MANU_SC_2010_0325":"Supreme Court of India vs. Narcoanalysis, Polygraph Examination, and Brain Electro-Stimulation (BEAP) Test",
+"MANU_SC_2011_0176":"Aruna Shanbaug's Right to Die with Dignity",
+"MANU_SC_2012_0311":"Supreme Court of India vs. Unaided Private Schools",      
+"MANU_SC_2015_0329":"Shreya Singhal v. Union of India (2015) 10 SCC 459"}
 import re
 
 space_handler = lambda k: re.sub('\s+', ' ', re.sub('\n+', ' ', k.strip()))
@@ -186,16 +257,71 @@ def processChunks(full_text,model_num,test):
 	ret=re.sub(r'\n+', '\n', ret)
 
 	return ret
-bad=['MANU_SC_2000_0046','MANU_SC_1978_0139','MANU_SC_2003_0234','MANU_SC_1980_0075','MANU_SC_2014_0043','MANU_SC_2013_0687']
-cases=['MANU_SC_2002_0189', 'MANU_SC_1975_0304', 'MANU_SC_1997_0157', 'MANU_SC_2012_0311', 'MANU_SC_1985_0039', 'MANU_SC_1978_0139', 'MANU_SC_2003_0234', 'MANU_SC_2008_3096', 'MANU_SC_1993_0333', 'MANU_SC_1983_0382', 'MANU_SC_2015_0329', 'MANU_SC_2006_0399', 'MANU_SC_1980_0075', 'MANU_SC_1978_0133', 'MANU_SC_2014_0043', 'MANU_SC_2010_0325', 'MANU_SC_1995_0290', 'MANU_SC_1967_0029', 'MANU_SC_2013_0687', 'MANU_SC_1986_0716', 'MANU_SC_2002_1141', 'MANU_SC_1997_0261', 'MANU_SC_2011_0176', 'MANU_SC_2002_0394']
-for case in bad:
-	if case in cases:
-		cases.remove(case) 
+# bad=['MANU_SC_2000_0046','MANU_SC_1978_0139','MANU_SC_2003_0234','MANU_SC_1980_0075','MANU_SC_2014_0043','MANU_SC_2013_0687']
+# cases=['MANU_SC_2002_0189', 'MANU_SC_1975_0304', 'MANU_SC_1997_0157', 'MANU_SC_2012_0311', 'MANU_SC_1985_0039', 'MANU_SC_1978_0139', 'MANU_SC_2003_0234', 'MANU_SC_2008_3096', 'MANU_SC_1993_0333', 'MANU_SC_1983_0382', 'MANU_SC_2015_0329', 'MANU_SC_2006_0399', 'MANU_SC_1980_0075', 'MANU_SC_1978_0133', 'MANU_SC_2014_0043', 'MANU_SC_2010_0325', 'MANU_SC_1995_0290', 'MANU_SC_1967_0029', 'MANU_SC_2013_0687', 'MANU_SC_1986_0716', 'MANU_SC_2002_1141', 'MANU_SC_1997_0261', 'MANU_SC_2011_0176', 'MANU_SC_2002_0394']
+# for case in bad:
+# 	if case in cases:
+# 		cases.remove(case) 
+
+
+def getSections(content):
+	# Regex pattern to match headings and their content
+	pattern = re.compile(r'###\s*(.*?):(.*?)(?=###|$)', re.DOTALL)
+
+	# Dictionary to store headings and their corresponding content
+	sections = {}
+
+	# Find all matches of headings and their content
+	matches = pattern.findall(content)
+
+	# Store each heading and content in the dictionary
+	for match in matches:
+		
+		heading = match[0].strip()  # Heading text (without **)
+		content = match[1].strip()  # Content associated with the heading
+		if content=="":
+			continue
+		sections[heading] = content.replace("*","-")
+	return sections
+import pickle
 def readFile(case,language):
 	case_root=os.path.join(settings.MEDIA_ROOT, "files")
+	case_lang_root=os.path.join(settings.MEDIA_ROOT, "data")
 	# Construct the filename
+	# language="English"
+	if language!="English":
+		try:
+
+			content=pickle.load(open(os.path.join(case_lang_root,f"data.pkl"),"rb"))
+			content=content[case]
+			# print(content)
+			content={section:value[language_setting[language]] for section,value in content.items()}
+			
+			if language in ["Bengali","Hindi"]:
+				text=""
+				for section,value in content.items():
+					text+=section+"\n"+value+"\n\n"
+				pdf=createPDF(case,language,text)
+			else:
+				filename = f"Summ_English.txt"
+				file_path = os.path.join(case_root, case,filename)
+				# Read the contents of the file
+				try:
+					with open(file_path, 'r', encoding="utf-8") as file:
+						text = file.read()
+					pdf=createPDF(case,"English",text)
+				except Exception as e:
+					# Handle any other exceptions
+					# content = None
+					print(f"An error occurred: {e}")
+			return content
+		except Exception as e:
+			content=None
+			print("Error",e)
+			return content
+
 	filename = f"Summ_{language}.txt"
-	
+
 	# Construct the full file path
 	file_path = os.path.join(case_root, case,filename)
 	
@@ -213,7 +339,7 @@ def readFile(case,language):
 		content = None
 		print(f"An error occurred: {e}")
 	
-	return content
+	return getSections(content)
 
 
 from django.http import FileResponse
@@ -234,8 +360,9 @@ def download_pdf_view(request, case, language):
 	return FileResponse(open(pdf_path, 'rb'), as_attachment=True, filename=pdf_filename)
 
 def home(request):
+	case_ids=list(cases.keys())
 	# context={"output":"","input":"","form_submitted":False,"language":"English","model":"Llama 3 8B","modelname":models["Llama 3 8B"]}
-	context={"output":"","input":"","form_submitted":False,"language":"English","selected_case":cases[0],"cases":cases}
+	context={"output":"","input":"","form_submitted":False,"language":"English","selected_case":case_ids[0],"cases":cases}
 	if request.method == 'POST':
 		print(request.POST)
 		print(request.FILES)
@@ -246,14 +373,35 @@ def home(request):
 		lang=request.POST["language"]
 		error=None
 		if case_num in cases:
-			ret=readFile(case_num,lang)
+			filename = f"Summ_English.txt"
+			case_root=os.path.join(settings.MEDIA_ROOT, "files")
+
+			file_path = os.path.join(case_root, case_num,filename)
+			# Read the contents of the file
+			with open(file_path, 'r', encoding="utf-8") as file:
+				text = file.read()
+			eng_sections=getSections(text)
+			print(eng_sections)
+			if lang!="English":
+				ret=readFile(case_num,lang)
+			else:
+				ret=eng_sections
 			print(ret,case_num,lang)
+			ret["Case Type"]=[it.strip() for it in eng_sections["Case Type"].split(",")]
+			ret["Case name"]=eng_sections["Case name"]
+			
+			# reordering-----
+			# order=["Case name","Case Type","Case","Summary","Main Arguments","Court Decisions","Arguments by Plaintiff","Arguments by Defendant","Legal Precedents or Statutes Cited","Quotations from the court","Judgement","Conclusion"]
+			order=["Case name","Case Type","Case","Summary","Main Arguments","Court Decisions","Legal Precedents or Statutes Cited","Quotations from the court","Judgement","Conclusion"]
+			ret = {key: ret[key] for key in order if key in ret.keys()}
+			# reordering-----
+
 			context={"success":True,"output":ret,"input":request.POST.get("input_text"),"form_submitted":True,"language":request.POST["language"],"selected_case":case_num,"cases":cases}
 			# return redirect('/?submitted=True')
 			return render(request, 'home-1.html',context=context)
 		else:
 			error="Invalid case selection"
-			context={"success":False,"error":error,"input":request.POST.get("input_text"),"form_submitted":True,"language":request.POST["language"],"model":case_num,"modelname":cases}
+			context={"success":False,"error":error,"input":request.POST.get("input_text"),"form_submitted":True,"language":request.POST["language"],"model":case_num,"cases":cases}
 			# return redirect('/?submitted=True')
 			return render(request, 'home-1.html',context=context)
 	else:
