@@ -55,6 +55,16 @@ def split_text_into_sentences(text):
 
 from fpdf import FPDF
 import os
+from datetime import datetime
+
+def getDate(date_str):
+	print(date_str)
+	date_str=date_str.strip()
+	# Parse the date string
+	# parsed_date = datetime.strptime(date_str, '%Y')
+	# Convert to the desired string format, e.g., "March 4, 1975"
+	# formatted_date = parsed_date.strftime('%Y')
+	return 
 
 def createPDF(case, language, content):
     # Define the filename for the PDF
@@ -360,9 +370,11 @@ def download_pdf_view(request, case, language):
 	return FileResponse(open(pdf_path, 'rb'), as_attachment=True, filename=pdf_filename)
 
 def home(request):
-	case_ids=list(cases.keys())
+	# global cases
 	# context={"output":"","input":"","form_submitted":False,"language":"English","model":"Llama 3 8B","modelname":models["Llama 3 8B"]}
-	context={"output":"","input":"","form_submitted":False,"language":"English","selected_case":case_ids[0],"cases":cases}
+	casesdict={key:{"name":value,"date":key[8:12]} for key,value in sorted(cases.items())}
+	case_ids=list(casesdict.keys())
+	context={"output":"","input":"","form_submitted":False,"language":"English","selected_case":case_ids[0],"cases":casesdict}
 	if request.method == 'POST':
 		print(request.POST)
 		print(request.FILES)
@@ -392,16 +404,18 @@ def home(request):
 			
 			# reordering-----
 			# order=["Case name","Case Type","Case","Summary","Main Arguments","Court Decisions","Arguments by Plaintiff","Arguments by Defendant","Legal Precedents or Statutes Cited","Quotations from the court","Judgement","Conclusion"]
-			order=["Case name","Case Type","Case","Summary","Main Arguments","Court Decisions","Legal Precedents or Statutes Cited","Quotations from the court","Judgement","Conclusion"]
-			ret = {key: ret[key] for key in order if key in ret.keys()}
+			order=["Case name","Case Type","Case","Brief Summary","Main Arguments","Legal Precedents or Statutes Cited","Quotations from the court","Present Court's Verdict","Conclusion"]
 			# reordering-----
-
-			context={"success":True,"output":ret,"input":request.POST.get("input_text"),"form_submitted":True,"language":request.POST["language"],"selected_case":case_num,"cases":cases}
+			ret["Case name"]=casesdict[case_num]["name"]+" ("+case_num[8:12]+")"
+			ret["Brief Summary"]=ret.pop("Summary")
+			ret["Present Court's Verdict"]=ret.pop("Court Decisions")
+			ret = {key: ret[key] for key in order if key in ret.keys()}
+			context={"success":True,"output":ret,"input":request.POST.get("input_text"),"form_submitted":True,"language":request.POST["language"],"selected_case":case_num,"cases":casesdict}
 			# return redirect('/?submitted=True')
 			return render(request, 'home-1.html',context=context)
 		else:
 			error="Invalid case selection"
-			context={"success":False,"error":error,"input":request.POST.get("input_text"),"form_submitted":True,"language":request.POST["language"],"model":case_num,"cases":cases}
+			context={"success":False,"error":error,"input":request.POST.get("input_text"),"form_submitted":True,"language":request.POST["language"],"model":case_num,"cases":casesdict}
 			# return redirect('/?submitted=True')
 			return render(request, 'home-1.html',context=context)
 	else:

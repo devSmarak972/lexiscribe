@@ -481,7 +481,7 @@
 
                            {% endcomment %}
                            <section id="inference" class="elementor-section elementor-top-section elementor-element elementor-element-532aac6 elementor-section-full_width wdt-dark-bg elementor-section-height-default elementor-section-height-default animated fadeIn" data-id="532aac6" data-element_type="section">
-                              <div class="elementor-background-overlay"></div>
+                              <div class="elementor-background-overlay" style="height:100rem"></div>
                               <div class="elementor-container elementor-column-gap-no">
                                  <div class="elementor-row">
                                     <div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-f280ae6" data-id="f280ae6" data-element_type="column">
@@ -555,15 +555,15 @@
                                                      type="text" 
                                                      id="searchInput" 
                                                      class="dropdownButton w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                                     placeholder="Search for the case.."
+                                                     placeholder="Select the case.."
                                                      style="margin:0px; color: darkslategray;"
                                                      oninput="filterFunction(this)"
                                                    >
                                                  
                                                    <!-- Dropdown -->
                                                    <div id="case-dropdown" class="dropdownMenu absolute z-10 w-full bg-white border border-gray-300 rounded-md mt-1 hidden" style="overflow-y: scroll;max-height: 500px;">
-                                                      {% for case, name in cases.items %}
-                                                      <span data-case="{{case}}" class="{% if selected_case == case %}active {% endif %} block px-4 py-2 text-gray-800 hover:bg-blue-100">{{name}}</span>
+                                                      {% for case, item in cases.items %}
+                                                      <span data-case="{{case}}" class="{% if selected_case == case %}active {% endif %} block px-4 py-2 text-gray-800 hover:bg-blue-100">{{item.name}} ({{item.date}})</span>
                                                       {% endfor %}
                                                       {% comment %} <span data-case="test" class="active block px-4 py-2 text-gray-800 hover:bg-blue-100">test</span>
                                                       <span data-case="test" class="block px-4 py-2 text-gray-800 hover:bg-blue-100">test</span>
@@ -585,10 +585,9 @@
                                                       </svg>
                                                    </button>
                                                    <!-- Tabs Container -->
-                                                   <div class="flex overflow-x-auto hide-scroll-bar space-x-4" id="case_select">
-                                                      {% for case, name in cases.items %}
-                                                      <button class="{% if selected_case == case %}active{% endif %} case-form px-4 py-3 whitespace-nowrap text-white rounded-lg" data-case="{{case}}" style="height: 150px; flex:1; text-wrap: pretty;
-    flex: 1;">{{name}}</button>
+                                                   <div class="overflow-y-visible flex overflow-x-auto hide-scroll-bar space-x-4" id="case_select">
+                                                      {% for case, item in cases.items %}
+                                                      <button class="{% if selected_case == case %}active{% endif %} case-form px-4 py-3 whitespace-nowrap text-white rounded-lg" data-case="{{case}}" style="height: 150px; flex:1; text-wrap: pretty;flex: 1;">{{item.name}} ({{item.date}})</button>
                                                       {% endfor %}
                                                       <!-- Add as many tabs as needed -->
                                                    </div>
@@ -627,16 +626,27 @@
                                                          </div>
                                                    </div>
                                              </section>
-                                             
+                                             <div class="flex flex-col">
+                                                <button  type="submit" class="submit-btn px-4 py-2 whitespace-nowrap active text-white rounded-lg my-2 mx-auto">Submit
+                                                   <div class="loader-container" style="display:none;">
+                                                      <div class="text-2xl ps-6 loader my-auto">
+                                                         <i class="fas fa-spinner fa-spin loader"></i>
+                                                      </div>
+                                                  </div>
+                                                </button>
+                                                <div class="text-center help_text text-green-500 text-sm" style="display:none">
+                                                Click submit to get the summary
+                                                </div>
+                                               </div>
                                              <section id="error-section" class="bg-white text-red-600 py-2 w-1/3 my-3 mx-auto text-center" style="display:{% if error %}block{% else %}none{% endif %}">
                                                 <div class="error">{% if error %}{{error}}{% endif %}</div>
                                              </section>
                                              <section id="text-input" class="elementor-section elementor-inner-section elementor-element elementor-element-3c23cfa elementor-section-full_width elementor-section-height-default elementor-section-height-default animated fadeInRight px-8" data-id="3c23cfa" data-element_type="section">
                                                 {% if form_submitted and success %}
-                                                <div class="file-element w-full flex ">
+                                                <div class="file-element w-full flex md:justify-start justify-center">
                                                    <div class="">
-                                                   <a href="{% url 'download_pdf' case=selected_case language=language %}"><div class="mx-5 mx-auto" id="file-label">
-                                                   Download File
+                                                   <a href="{% url 'download_pdf' case=selected_case language=language %}"><div class="mx-5 mx-auto text-center" style="width:170px" id="file-label">
+                                                   Download Summary as PDF
                                                    </div>
                                                    </a>
                                                    </div>
@@ -709,16 +719,7 @@
                                                   </div>
                                                 </div>
                                              </section>
-                                             <div class="flex">
-                                             <button  type="submit" class="submit-btn px-4 py-2 whitespace-nowrap active text-white rounded-lg my-2 mx-auto">Submit
-                                                <div class="loader-container" style="display:none;">
-                                                   <div class="text-2xl ps-6 loader my-auto">
-                                                      <i class="fas fa-spinner fa-spin loader"></i>
-                                                   </div>
-                                               </div>
-                                             </button>
-                                             
-                                            </div>
+                                            
                                           </form>
                                           </div>
                                        </div>
@@ -2018,7 +2019,8 @@ all_cases.forEach(div => {
       document.querySelector("#case_form").value=event.currentTarget.dataset.case;
       document.querySelector("#searchInput").value=event.currentTarget.innerText;
       console.log("clicked on: ",event.currentTarget.dataset.case);
-   
+      document.querySelector(".help_text").style.display="block";
+
       // Prevent event from propagating to child elements
       event.stopPropagation();
    });
@@ -2053,6 +2055,7 @@ caseddown.forEach(div => {
       //console.log(dropdownButton.contains(e.target),e.target,dropdownButton)
        dropdownMenu.classList.add('hidden');
       // Prevent event from propagating to child elements
+      document.querySelector(".help_text").style.display="block";
       event.stopPropagation();
    });
 });
