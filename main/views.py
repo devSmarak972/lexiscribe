@@ -20,7 +20,7 @@ language_setting={
 	"Assamese":"asm_Beng",
 	"Nepali":"npi_Deva",
 	"Bodo":"brx_Deva",
-	# "Manipuri":"mni_Beng",
+	"Manipuri":"mni_Beng",
 	# "Manipuri (Meitei)":"mni_Mtei"
 }
 code_to_lang = {v: k for k, v in language_setting.items()}
@@ -81,24 +81,39 @@ def createPDF(case, language, content):
 	pdf.add_page()
 
 	# Register and set the font based on the language
+	pdf.add_font('NotoSerifBold', '', os.path.join(settings.MEDIA_ROOT, "fonts", 'NotoSerif-Bold.ttf'), uni=True)
 	if language == 'English':
 		# Set the English font
 		pdf.add_font('NotoSerif', '', os.path.join(settings.MEDIA_ROOT, "fonts", 'NotoSerif-Regular.ttf'), uni=True)
 		pdf.set_font('NotoSerif', '', 12)
+		f='NotoSerif'
 		sep = "."
 	elif language in ['Bengali','Manipuri','Assamese']:
 		# Set the Bengali font
 		pdf.add_font('NotoSansBengali', '', os.path.join(settings.MEDIA_ROOT, "fonts", 'NotoSansBengali-Regular.ttf'), uni=True)
+		# pdf.add_font('NotoSansBengali', '', os.path.join(settings.MEDIA_ROOT, "fonts", 'NotoSansBengali-Regular.ttf'), uni=True)
 		pdf.set_font('NotoSansBengali', '', 12)
+		f='NotoSansBengali'
 		sep = "|"
 	elif language in ['Hindi','Bodo','Nepali']:
 		# Set the Hindi font
 		pdf.add_font('NotoSansDevanagari', '', os.path.join(settings.MEDIA_ROOT, "fonts", 'NotoSansDevanagari-Regular.ttf'), uni=True)
 		pdf.set_font('NotoSansDevanagari', '', 12)
+		f='NotoSansDevanagari'
 		sep = "|"
 	
 	# Process the content and add it to the PDF
 	for line in content.split("\n\n"):
+		heading = re.findall(r'\*(.*?)\*', line)
+		if len(heading)==0:
+			continue
+		heading=heading[0]
+		# print(heading,"heading")
+		pdf.set_font("NotoSerifBold", '', 14)
+		pdf.multi_cell(0, 14, heading,ln=True)
+		line=line[len(heading)+3:]
+		# print(line)
+		pdf.set_font(f, '', 12)
 		pdf.multi_cell(0, 10, line)
 		pdf.ln(5)  # Add some space between paragraphs
 
@@ -225,7 +240,7 @@ cases={
 	# "MANU_SC_1967_0029":"The Constitution (Forty-Fourth Amendment) Act 1978 and The Constitution (Forty-Fifth Amendment) Act 2002",
 "MANU_SC_1975_0304":"Kesavananda Bharati v. State of Kerala",
 "MANU_SC_1978_0133":"Passport Authority v. Government of India",
-"MANU_SC_1983_0382":"State of Maharashtra vs. The Director General of Police and others",
+# "MANU_SC_1983_0382":"State of Maharashtra vs. The Director General of Police and others",
 "MANU_SC_1985_0039":"Bombay High Court and Supreme Court Judgments on Right to Life and Livelihood",
 "MANU_SC_1986_0716":"K.P. Joseph v. State of Kerala & Ors.",
 "MANU_SC_1993_0333":"TMA Pai Foundation vs. State of Karnataka and Ors. ( implications on Education Regulation and Affiliation)",
@@ -419,7 +434,7 @@ def home(request):
 					if section.lower()=="case type":
 						continue
 					# print(section,value)
-					text+=section+"\n"+value+"\n\n"
+					text+="*"+section+"*"+"\n"+value+"\n\n"
 			pdf=createPDF(case_num,lang,text)
 			# else:
 			# 	for section,value in ret.items():
