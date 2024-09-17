@@ -20,7 +20,7 @@ language_setting={
 	"Assamese":"asm_Beng",
 	"Nepali":"npi_Deva",
 	"Bodo":"brx_Deva",
-	"Manipuri":"mni_Beng",
+	# "Manipuri":"mni_Beng",
 	# "Manipuri (Meitei)":"mni_Mtei"
 }
 code_to_lang = {v: k for k, v in language_setting.items()}
@@ -67,44 +67,48 @@ def getDate(date_str):
 	return 
 
 def createPDF(case, language, content):
-    # Define the filename for the PDF
-    pdf_filename = f"{case}_{language}.pdf"
-    pdf_path = os.path.join(settings.MEDIA_ROOT, "pdfs", pdf_filename)
+	# Define the filename for the PDF
+	pdf_filename = f"{case}_{language}.pdf"
+	pdf_path = os.path.join(settings.MEDIA_ROOT, "pdfs", pdf_filename)
+	if os.path.exists(pdf_path):
+		os.remove(pdf_path)
 
-    # Ensure the directory exists
-    os.makedirs(os.path.dirname(pdf_path), exist_ok=True)
+	# Ensure the directory exists
+	os.makedirs(os.path.dirname(pdf_path), exist_ok=True)
 
-    # Create a PDF instance
-    pdf = FPDF()
-    pdf.add_page()
+	# Create a PDF instance
+	pdf = FPDF()
+	pdf.add_page()
 
-    # Register and set the font based on the language
-    if language == 'English':
-        # Set the English font
-        pdf.add_font('NotoSerif', '', os.path.join(settings.MEDIA_ROOT, "fonts", 'NotoSerif-Regular.ttf'), uni=True)
-        pdf.set_font('NotoSerif', '', 12)
-        sep = "."
-    elif language == 'Bengali':
-        # Set the Bengali font
-        pdf.add_font('NotoSansBengali', '', os.path.join(settings.MEDIA_ROOT, "fonts", 'NotoSansBengali-Regular.ttf'), uni=True)
-        pdf.set_font('NotoSansBengali', '', 12)
-        sep = "|"
-    elif language == 'Hindi':
-        # Set the Hindi font
-        pdf.add_font('NotoSansDevanagari', '', os.path.join(settings.MEDIA_ROOT, "fonts", 'NotoSansDevanagari-Regular.ttf'), uni=True)
-        pdf.set_font('NotoSansDevanagari', '', 12)
-        sep = "|"
-    
-    # Process the content and add it to the PDF
-    for line in content.split("\n\n"):
-        pdf.multi_cell(0, 10, line)
-        pdf.ln(5)  # Add some space between paragraphs
+	# Register and set the font based on the language
+	if language == 'English':
+		# Set the English font
+		pdf.add_font('NotoSerif', '', os.path.join(settings.MEDIA_ROOT, "fonts", 'NotoSerif-Regular.ttf'), uni=True)
+		pdf.set_font('NotoSerif', '', 12)
+		sep = "."
+	elif language in ['Bengali','Manipuri']:
+		# Set the Bengali font
+		pdf.add_font('NotoSansBengali', '', os.path.join(settings.MEDIA_ROOT, "fonts", 'NotoSansBengali-Regular.ttf'), uni=True)
+		pdf.set_font('NotoSansBengali', '', 12)
+		sep = "|"
+	elif language in ['Hindi','Bodo','Nepali']:
+		# Set the Hindi font
+		pdf.add_font('NotoSansDevanagari', '', os.path.join(settings.MEDIA_ROOT, "fonts", 'NotoSansDevanagari-Regular.ttf'), uni=True)
+		pdf.set_font('NotoSansDevanagari', '', 12)
+		sep = "|"
+	
+	# Process the content and add it to the PDF
+	for line in content.split("\n\n"):
+		pdf.multi_cell(0, 10, line)
+		pdf.ln(5)  # Add some space between paragraphs
 
-    # Output the PDF to a file
-    pdf.output(pdf_path)
+	# print(content)
+	# print("=======================")
+	# Output the PDF to a file
+	pdf.output(pdf_path)
 
-    # Return the path to the PDF
-    return pdf_filename
+	# Return the path to the PDF
+	return pdf_filename
 
 # def createPDF(case,language,content):
 # 	# Define the filename for the PDF
@@ -331,15 +335,14 @@ def readFile(case,language):
 			return content
 
 	filename = f"Summ_{language}.txt"
-
 	# Construct the full file path
 	file_path = os.path.join(case_root, case,filename)
-	
+	print(language)
 	# Read the contents of the file
 	try:
 		with open(file_path, 'r', encoding="utf-8") as file:
 			content = file.read()
-		pdf=createPDF(case,language,content)
+		# pdf=createPDF(case,language,content)
 
 	except FileNotFoundError:
 		# Handle the case where the file does not exist
@@ -398,10 +401,9 @@ def home(request):
 				ret=readFile(case_num,lang)
 			else:
 				ret=eng_sections
-			print(ret,case_num,lang)
+			# print(ret,case_num,lang)
 			ret["Case Type"]=[it.strip() for it in eng_sections["Case Type"].split(",")]
 			ret["Case name"]=eng_sections["Case name"]
-			
 			# reordering-----
 			# order=["Case name","Case Type","Case","Summary","Main Arguments","Court Decisions","Arguments by Plaintiff","Arguments by Defendant","Legal Precedents or Statutes Cited","Quotations from the court","Judgement","Conclusion"]
 			order=["Case name","Case Type","Case","Brief Summary","Main Arguments","Legal Precedents or Statutes Cited","Quotations from the court","Present Court's Verdict","Conclusion"]
@@ -409,7 +411,28 @@ def home(request):
 			ret["Case name"]=casesdict[case_num]["name"]+" ("+case_num[8:12]+")"
 			ret["Brief Summary"]=ret.pop("Summary")
 			ret["Present Court's Verdict"]=ret.pop("Court Decisions")
-			ret = {key.lower(): ret[key] for key in order if key in ret.keys()}
+			text=""
+			ret = {key: ret[key] for key in order if key in ret.keys()}
+			# if lang in ["English","Bengali","Hindi"]:
+				# print("=======================================")
+			for section,value in ret.items():
+					if section.lower()=="case type":
+						continue
+					# print(section,value)
+					text+=section+"\n"+value+"\n\n"
+			pdf=createPDF(case_num,lang,text)
+			# else:
+			# 	for section,value in ret.items():
+			# 			if section.lower()=="case type":
+			# 				continue
+			# 			# print(section,value)
+			# 			text+=section+"\n"+value+"\n\n"
+			# 	default_lang="English"
+			# 	pdf=createPDF(case_num,default_lang,text)
+
+
+			# print("=======================================")
+			ret = {key.lower(): ret[key] for key in ret.keys()}
 			context={"success":True,"output":ret,"input":request.POST.get("input_text"),"form_submitted":True,"language":request.POST["language"],"selected_case":case_num,"cases":casesdict}
 			# return redirect('/?submitted=True')
 			return render(request, 'home-1.html',context=context)
