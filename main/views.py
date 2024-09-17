@@ -86,7 +86,7 @@ def createPDF(case, language, content):
 		pdf.add_font('NotoSerif', '', os.path.join(settings.MEDIA_ROOT, "fonts", 'NotoSerif-Regular.ttf'), uni=True)
 		pdf.set_font('NotoSerif', '', 12)
 		sep = "."
-	elif language in ['Bengali','Manipuri']:
+	elif language in ['Bengali','Manipuri','Assamese']:
 		# Set the Bengali font
 		pdf.add_font('NotoSansBengali', '', os.path.join(settings.MEDIA_ROOT, "fonts", 'NotoSansBengali-Regular.ttf'), uni=True)
 		pdf.set_font('NotoSansBengali', '', 12)
