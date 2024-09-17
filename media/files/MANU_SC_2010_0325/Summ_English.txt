@@ -1,27 +1,4 @@
 ### Case name: 
-**Supreme Court of India vs. Narcoanalysis Test**
-### Case Type: 
-**Constitutional Law, Right to Privacy, Right against Self-Incrimination**
-### Arguments by Plaintiff:
-**The petitioner has been subjected to involuntary administration of narcoanalysis, polygraph examination, and brain electrical activation profile (BEAP) tests for the purposes of improving investigation efforts in criminal cases, which violates the right against self-incrimination enshrined in Article 20 (3) of the Constitution.**
-### Arguments by Defendant:
-**Not mentioned in the given judgment**
-### Case: 
-**The Supreme Court observed that the involuntary administration of narcoanalysis, polygraph examination, and brain electrical activation profile (BEAP) tests for the purposes of improving investigation efforts in criminal cases violates the right against self-incrimination enshrined in Article 20 (3) of the Constitution.**
-### Summary: 
-**The Supreme Court held that the use of narcoanalysis, polygraph examination, and brain electrical activation profile (BEAP) tests in criminal investigations is unconstitutional and violative of the right to privacy. The Court observed that the right against self-incrimination under Article 20(3) of the Constitution of India is not confined to the trial stage but extends to the stage of investigation as well.**
-### Main Arguments: 
-**The main arguments presented by the petitioner were that the involuntary administration of narcoanalysis, polygraph examination, and brain electrical activation profile (BEAP) tests violates the right against self-incrimination enshrined in Article 20 (3) of the Constitution. The Court observed that the use of such tests in criminal investigations violates Articles 20(3) and 21 of the Constitution.**
-### Court Decisions: 
-**The Supreme Court of the United States in Daubert v. Merrel Dow Pharmaceuticals, Inc., 509 U.S. 579, 113 S. Ct. 2786, 125 L. Ed. 2d 469 (1993) held that the "general acceptance" standard articulated in Frye v. United States, 290 F. 10 The Supreme Court of Canada in R v Beland (1987) 36 CCC (3rd) 481 held that polygraph test results are inadmissible as evidence. The Supreme Court of New Jersey had upheld the trial court’s decision to exclude the psychiatrist’s testimony in the guilt phase. The Supreme Court of Canada had held that statements made in a hypnotic state were not voluntary and hence, they cannot be admitted as evidence.**
-### Legal Precedents or Statutes Cited: 
-**Article 20 (3) of the Constitution of India, Indian Evidence Act, 1973**
-### Quotations from the court: 
-**"We are of the view that the use of In the present case, the petitioner has been subjected to custodial interrogation for more than 100 days. The petitioner has been interrogated for more than 200 hours. The petitioner has been subjected to 3 polygraph tests. The petitioner has also been subjected to a narco analysis test. The petitioner has also been administered a lie detector test. The petitioner has also undergone a brain mapping test."**
-### Judgement:
-**The Supreme Court observed that the involuntary administration of narcoanalysis, polygraph examination, and brain electrical activation profile (BEAP) tests for the purposes of improving investigation efforts in criminal cases violates the right against self-incrimination enshrined in Article 20 (3) of the Constitution. The Court held that the use of narcoanalysis, polygraph examination, and brain electrical activation profile (BEAP) tests in criminal investigations is unconstitutional and violative of the right to privacy.**
-### Conclusion: 
-**The Supreme Court held that the use of narcoanalysis, polygraph examination, and brain electrical activation profile (BEAP) tests in criminal investigations is unconstitutional and violative of the right to privacy. The Court observed that the right against self-incrimination under Article 20(3) of the Constitution of India is not confined to the trial stage but extends to the stage of investigation as well.**### Case name: 
 Supreme Court of India vs. Narcoanalysis, Polygraph Examination, and Brain Electro-Stimulation (BEAP) Test
 ### Case Type: 
 Constitutional Law, Right to Personal Liberty, Right to Privacy

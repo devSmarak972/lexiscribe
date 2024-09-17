@@ -26,27 +26,4 @@ The Supreme Court has held that the Tribunals, constituted under Article 323-A a
 ### Judgement:
 The Supreme Court has held that the Tribunals possess the competence to test constitutional validity of statutory provisions/rules.
 ### Conclusion:
-The Supreme Court has held that the Tribunals possess the competence to test constitutional validity of statutory provisions/rules, and the CAT and the SATs are not substitutes for the High Courts under Article 226 and Article 227 of the Constitution of India.### Case Name: 
-Indian Tribunals and High Court Jurisdiction 
-### Case Type: 
-Constitutional Law 
-### Arguments by Plaintiff: 
-The plaintiffs argued that the Tribunals created under Articles 323-A and 323-B should be subject to the writ jurisdiction of the High Court under Article 226. They claimed that the Tribunals should not have the power to test the constitutional validity of subordinate legislation and rules without being subject to scrutiny by the High Court.
-### Arguments by Defendant: 
-The defendants argued that the Tribunals should have the power to test the constitutional validity of subordinate legislation and rules without being subject to scrutiny by the High Court. They claimed that the Tribunals are established under Articles 323-A and 323-B and have the authority to make decisions on the constitutional validity of subordinate legislation and rules.
-### Case: 
-The case involved a batch of petitions challenging the constitutional validity of Articles 323-A and 323-B, which created the Tribunals. The bench was dealing with the jurisdiction of the Tribunals and the High Court, particularly in relation to the writ jurisdiction under Article 226.
-### Summary: 
-The Supreme Court held that all decisions of the Tribunals created under Articles 323-A and 323-B will be subject to the writ jurisdiction of the High Court under Article 226, before a Division Bench of the High Court within whose territorial jurisdiction, the particular Tribunal falls. However, the Tribunals will retain the power to test the constitutional validity of subordinate legislation and rules, except where the legislation that creates the particular Tribunal is challenged.
-### Main Arguments: 
-The main arguments in this case revolved around the jurisdiction of the Tribunals and the High Court, particularly in relation to the writ jurisdiction under Article 226. The plaintiffs argued that the Tribunals should be subject to scrutiny by the High Court, while the defendants argued that the Tribunals should have the power to test the constitutional validity of subordinate legislation and rules.
-### Court Decisions: 
-The Supreme Court held that the Tribunals will be subject to the writ jurisdiction of the High Court under Article 226, before a Division Bench of the High Court within whose territorial jurisdiction, the particular Tribunal falls. The Court also held that the Tribunals will retain the power to test the constitutional validity of subordinate legislation and rules, except where the legislation that creates the particular Tribunal is challenged.
-### Legal Precedents or Statutes Cited: 
-The Court cited Articles 323-A and 323-B, which created the Tribunals, as well as Article 226, which provides for the writ jurisdiction of the High Court.
-### Quotations from the Court: 
-"The bench of Justices L. Nageswara Rao, BR Gavai, AS Bopanna and V. Ramasubramanian observed: “In view of the above, we hold that all decisions of the Tribunals created under Articles... 323-A and Articles 323-B will be subject to the writ jurisdiction of the High Court under Article 226, before a Division Bench of High Court, within whose territorial Jurisdiction, the particular Tribunal falls.”"
-### Judgement: 
-The Supreme Court held that the Tribunals will be subject to the writ jurisdiction of the High Court under Article 226, before a Division Bench of the High Court within whose territorial jurisdiction, the particular Tribunal falls. The Court also held that the Tribunals will retain the power to test the constitutional validity of subordinate legislation and rules, except where the legislation that creates the particular Tribunal is challenged.
-### Conclusion: 
-The Supreme Court's decision in this case established the jurisdiction of the Tribunals and the High Court, particularly in relation to the writ jurisdiction under Article 226. The decision ensured that the Tribunals will be subject to scrutiny by the High Court, while retaining the power to test the constitutional validity of subordinate legislation and rules.
+The Supreme Court has held that the Tribunals possess the competence to test constitutional validity of statutory provisions/rules, and the CAT and the SATs are not substitutes for the High Courts under Article 226 and Article 227 of the Constitution of India.

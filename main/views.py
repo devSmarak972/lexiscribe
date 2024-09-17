@@ -409,7 +409,7 @@ def home(request):
 			ret["Case name"]=casesdict[case_num]["name"]+" ("+case_num[8:12]+")"
 			ret["Brief Summary"]=ret.pop("Summary")
 			ret["Present Court's Verdict"]=ret.pop("Court Decisions")
-			ret = {key: ret[key] for key in order if key in ret.keys()}
+			ret = {key.lower(): ret[key] for key in order if key in ret.keys()}
 			context={"success":True,"output":ret,"input":request.POST.get("input_text"),"form_submitted":True,"language":request.POST["language"],"selected_case":case_num,"cases":casesdict}
 			# return redirect('/?submitted=True')
 			return render(request, 'home-1.html',context=context)

@@ -21,47 +21,4 @@ The Supreme Court observed that "the Governor is not expected to be a rubber sta
 ### Judgement: 
 The Supreme Court held that the Governor's decision to dissolve the Bihar Legislative Assembly in 2005 was illegal and unconstitutional. The Court also observed that the Governor's powers under Article 174(2)(b) of the Constitution can be exercised even before the first meeting of the Legislative Assembly takes place.
 ### Conclusion: 
-The Supreme Court's judgment in the Bihar Legislative Assembly Dissolution Case has significant implications for the governance of the State and the role of the Governor in ensuring that the government functions in accordance with the Constitution. The Court's decision emphasizes the importance of the Governor exercising his discretion to prevent a constitutional crisis and to ensure that the government functions in a legitimate manner.### Case name: President's Reference (Article 356) (2009)
-### Case Type: Constitutional Law, Judicial Review
-### Arguments by Plaintiff:
-The petitioners argued that the President's Proclamation dated 7th March 2005 was not valid as it was issued without consulting the Chief Minister of Jharkhand, and that the Governor's reports dated 6th March 2005, 21st May 2005, and 27th April 2005 did not reflect the correct position in law.
-### Arguments by Defendant:
-The respondents argued that the President's Proclamation was valid as it was issued in accordance with Article 356 of the Constitution, and that the Governor's reports were sufficient to justify the Proclamation.
-### Case:
-The case involved a reference made by the President to the Supreme Court under Article 143 of the Constitution, seeking clarification on the scope of judicial review in the matter of exercise of power under Article 356.
-### Summary:
-The Supreme Court held that the scope of judicial review in the matter of exercise of power under Article 356 is limited to the deficiency in the decision-making process and not in the decision itself. The Court also observed that the Governor should be appointed only by the President after consulting the Chief Minister of the State, and that the powers of the Governor should be exercised in consultation with the Council of Ministers.
-### Main Arguments:
-The main arguments in the case were centered around the scope of judicial review in the matter of exercise of power under Article 356, and the role of the Governor in the exercise of power. The petitioners argued that the President's Proclamation was invalid as it was issued without consulting the Chief Minister, while the respondents argued that the Proclamation was valid as it was issued in accordance with Article 356.
-### Court Decisions:
-The Supreme Court held that the scope of judicial review in the matter of exercise of power under Article 356 is limited to the deficiency in the decision-making process and not in the decision itself. The Court also observed that the Governor should be appointed only by the President after consulting the Chief Minister of the State.
-### Legal Precedents or Statutes Cited:
-The Constitution (Forty-Fourth Amendment) Act, 1978 was cited as a reference to the amendment of Article 356. Article 356 of the Constitution of India was also cited as the provision under which the President's Proclamation was issued.
-### Quotations from the court:
-"The scope of judicial review in the matters of exercise of power under Article-356 is limited to deficiency in the decision making process and not in the decision itself", the bench of Justices L. Nageswara Rao, BR Gavai and Krishna Murari observed.
-### Judgement:
-The Supreme Court held that the President's Proclamation was valid, but the Governor's reports were inadequate to justify the Proclamation. The Court also observed that the Governor should be appointed only by the President after consulting the Chief Minister of the State.
-### Conclusion:
-The case settled the scope of judicial review in the matter of exercise of power under Article 356, and clarified the role of the Governor in the exercise of power. The Court held that the scope of judicial review is limited to the deficiency in the decision-making process and not in the decision itself, and that the Governor should be appointed only by the President after consulting the Chief Minister of the State.### Case name: 
-President of India & Ors v. Speaker, Bihar Legislative Assembly & Ors.
-### Case Type: Constitutional Law, Judiciary Review
-### Arguments by Plaintiff:
-The President of India, along with the Governor of Bihar, argued that the dissolution of the Bihar Legislative Assembly was constitutional as it was done under Article 174(2)(b) of the Constitution, which allows the President to dissolve the Assembly in case the Governor is satisfied that the Assembly cannot be carried on in accordance with the provisions of the Constitution.
-### Arguments by Defendant:
-The Speaker of the Bihar Legislative Assembly and other respondents argued that the dissolution of the Assembly was not constitutional as it was done on the basis of mala fide and extraneous grounds, and that the Governor had no authority to dissolve the Assembly without following the due process of law.
-### Case: 
-The case centered around the dissolution of the Bihar Legislative Assembly by the Governor on the ground that the majority projected was based on unethical and corrupt means. The Speaker and other respondents challenged the dissolution in the Supreme Court, alleging that it was unconstitutional and that the Governor had acted mala fide.
-### Summary: 
-The Supreme Court observed that the power of judicial review cannot be exercised when a proclamation is issued under Article 356 of the Constitution on the ground of mala fide or on the ground of wholly extraneous or irrelevant grounds. The Court also noted that the power conferred on the President to dissolve the State Legislative Assembly under Article 174(2)(b) of the Constitution is not absolute and has checks and balances.
-### Main Arguments:
-The main arguments of the case revolved around the interpretation of Article 174(2)(b) of the Constitution and the power of the Governor to dissolve the Assembly. The respondents argued that the dissolution was not constitutional, while the petitioners argued that it was done in accordance with the provisions of the Constitution.
-### Court Decisions:
-The Supreme Court dismissed the plea challenging the dissolution of the Bihar Legislative Assembly, observing that the power of judicial review cannot be exercised in such cases. The Court also held that the power conferred on the President to dissolve the Assembly is not absolute and has checks and balances.
-### Legal Precedents or Statutes Cited:
-The Court cited Article 174(2)(b) of the Constitution, which allows the President to dissolve the Assembly in case the Governor is satisfied that the Assembly cannot be carried on in accordance with the provisions of the Constitution.
-### Quotations from the Court:
-"The power of judicial review cannot be exercised when a proclamation is issued under Article 356 of the Constitution on the ground of mala fide or on the ground of wholly extraneous or irrelevant grounds."
-### Judgement:
-The Supreme Court dismissed the plea challenging the dissolution of the Bihar Legislative Assembly, upholding the Governor's decision.
-### Conclusion:
-The Supreme Court held that the power conferred on the President to dissolve the State Legislative Assembly under Article 174(2)(b) of the Constitution is not absolute and has checks and balances, and that the Governor has the authority to dissolve the Assembly in case the Assembly cannot be carried on in accordance with the provisions of the Constitution.
+The Supreme Court's judgment in the Bihar Legislative Assembly Dissolution Case has significant implications for the governance of the State and the role of the Governor in ensuring that the government functions in accordance with the Constitution. The Court's decision emphasizes the importance of the Governor exercising his discretion to prevent a constitutional crisis and to ensure that the government functions in a legitimate manner.

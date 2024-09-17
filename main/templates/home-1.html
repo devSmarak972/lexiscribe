@@ -481,7 +481,7 @@
 
                            {% endcomment %}
                            <section id="inference" class="elementor-section elementor-top-section elementor-element elementor-element-532aac6 elementor-section-full_width wdt-dark-bg elementor-section-height-default elementor-section-height-default animated fadeIn" data-id="532aac6" data-element_type="section">
-                              <div class="elementor-background-overlay" style="height:100rem"></div>
+                              <div class="elementor-background-overlay" style="height:80rem"></div>
                               <div class="elementor-container elementor-column-gap-no">
                                  <div class="elementor-row">
                                     <div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-f280ae6" data-id="f280ae6" data-element_type="column">
@@ -703,11 +703,13 @@
                                                           
                                                          {% else %}
                                                          <div class="border  rounded mb-2 acc-container">
-                                                           <div onclick="toggleAccordion(this,{{forloop.counter}})" class="acc-header w-full text-left p-4 focus:outline-none">
+                                                           <div onclick="toggleAccordion(this,{{forloop.counter}})" data-index="{{forloop.counter}}" class="acc-header w-full text-left p-4 focus:outline-none">
                                                             {{ heading|title }}
                                                            </div>
                                                            <div id="accordion-content-{{forloop.counter}}" class="text-gray-700 bg-white acc-content p-4 hidden">
-                                                             <p>{{ content|linebreaksbr }}</p>
+                                                             <p class="" style="text-wrap:pretty">
+                                                               <span class="typing-text"></span>
+                                                             </p>
                                                            </div>
                                                          </div>
                                                          {% endif %}
@@ -2227,7 +2229,77 @@ upload.addEventListener("change",(event)=>{
          content.classList.toggle('hidden');
          event.classList.toggle("active")
        }
+       var case_details={
+         {% for heading, content in output.items %}
+         "{{heading}}":{"typingStarted":false,"index":0,"content":'{{content|linebreaksbr}}'},
+         {% endfor %}
+       }
+       // DOM element where the text will be typed out
+       const accordionbody = document.querySelectorAll('accordion_body');
+       //const button = document.getElementById('startButton');
+       // Initialize variables for typing effect
+       {% comment %} let index = 0; {% endcomment %}
        
+       // Function to display each character one by one
+       function typeText(el,sect,item) {
+         //var index=sect["index"];
+         var text=sect["content"];
+         /*if (sect["index"] < text.length) {
+            el.innerHTML += text.charAt(sect["index"]);
+            console.log("typing....",text[sect["index"]])
+            sect["index"]++;
+            } else {
+               clearInterval(typingInterval);  // Stop once all characters are displayed
+               }*/
+               
+               // Get current text length from the DOM
+               let currentLength = sect["index"];
+               // If the next part of the string is a <br>, append it as HTML
+               if (text.substring(currentLength, currentLength + 4) === '<br>') {
+                  el.innerHTML += '<br>';  // Insert line break
+                  currentLength += 4;  // Skip over the <br> tag
+                  sect["index"]+=4;
+               }
+               else if (text.substring(currentLength, currentLength + 6) === '&quot;') {
+                  el.innerHTML += '\"';  // Insert line break
+                  currentLength += 6;  // Skip over the <br> tag
+                  sect["index"]+=6;
+               }
+               else if (text.substring(currentLength, currentLength + 6) === '&#x27;') {
+                  el.innerHTML += '\'';  // Insert line break
+                  currentLength += 6;  // Skip over the <br> tag
+                  sect["index"]+=6;
+               
+               }
+               // Append the next character unless we reach the end
+               else if (currentLength < text.length) {
+                  el.innerHTML += text.charAt(currentLength);
+                  sect["index"]++;
+               } else {
+              
+               clearInterval(case_details[item]["typingInterval"]);  // Stop once all characters are displayed
+           }
+
+       }
+       accordion_buttons=document.querySelectorAll(".acc-header")
+       accordion_buttons.forEach(button=>{
+          // Function to start typing on button click, only the first time
+          var item=button.innerText.toLowerCase().replace("\'","&#x27;");
+         console.log(case_details,item)
+          var case_item=case_details[item];
+          var id=button.dataset.index;
+          var typingElement=document.querySelector(`#accordion-content-${id} .typing-text`)
+          button.addEventListener('click', function() {
+            console.log(case_item);
+              if (!case_item["typingStarted"]) {  // Ensure typing starts only the first time
+                  typingElement.style.visibility = 'visible';  // Make the text visible
+                   case_details[item]["typingInterval"] = setInterval(function() {
+                     typeText(typingElement,case_item,item);  // Passing parameters
+                 }, 30);  // 100ms delay between characters
+                  case_item["typingStarted"] = true;  // Prevent future clicks from restarting the typing effect
+              }
+          });
+       })
    </script>
    
    {% if form_submitted %}

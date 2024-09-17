@@ -1,7 +1,7 @@
 ### Case name: 
 **Supreme Court of India vs. Unaided Private Schools**
 ### Case Type:
-**Constitutional Law**
+Constitutional Law
 ### Arguments by Plaintiff:
 **The Central Government and the State Governments** argued that the Right to Education Act, 2009, which provides for free and compulsory education to all children in the age group of 6-14 years, is a fundamental right guaranteed under Article 21A of the Constitution of India and should be applicable to all educational institutions, including private unaided schools.
 ### Arguments by Defendant:
@@ -21,29 +21,4 @@
 ### Judgement:
 **The Supreme Court of India held that Section 12(1)(c) of the RTE Act is unconstitutional and violative of Articles 19(1)(g) and 26 of the Constitution of India. The Court observed that the RTE Act is not applicable to private unaided educational institutions and that the right to education is a fundamental right guaranteed under Article 21A of the Constitution of India.**
 ### Conclusion:
-**The Supreme Court of India held that the Right to Education Act, 2009, is not applicable to private unaided educational institutions and that the right to education is a fundamental right guaranteed under Article 21A of the Constitution of India. The Court also observed that Section 12(1)(c) of the RTE Act is unconstitutional and violative of Articles 19(1)(g) and 26 of the Constitution of India.**### Case Name: TMA Pai Foundation & Ors. v. State of Karnataka (RTE Act, 2009)
-### Case Type: Constitutional Law, Education Law
-### Arguments by Plaintiff:
-The petitioners challenged the constitutional validity of Section 12 (1)(c) of the Right to Education (RTE) Act, 2009, which mandates 25% reservation in private unaided schools for children belonging to disadvantaged groups.
-### Arguments by Defendant:
-The State of Karnataka defended the provision as necessary to fulfill the constitutional mandate of providing free and compulsory education to all children.
-### Case:
-The Supreme Court heard the petitioners' challenge to Section 12 (1)(c) of the RTE Act, 2009, and its constitutionality.
-### Summary:
-The Supreme Court upheld the constitutional validity of Section 12 (1)(c) of the RTE Act, 2009, which mandates 25% reservation in private unaided schools for children belonging to disadvantaged groups.
-### Main Arguments:
-- The petitioner argued that the provision was unconstitutional as it imposed an obligation on private unaided schools to admit a certain number of disadvantaged children without charging any fee.
-- The respondent argued that the provision was necessary to fulfill the constitutional mandate of providing free and compulsory education to all children.
-### Court Decisions:
-The Supreme Court, in a 3:2 majority decision, upheld the validity of the provision.
-### Legal Precedents or Statutes Cited:
-- Article 14 of the Constitution of India (Equality before Law)
-- Article 15(5) of the Constitution of India (Special provisions for children)
-- Section 12 (1)(c) of the RTE Act, 2009
-- Section 38 of the RTE Act, 2009 (Directions and guidelines for carrying out the purposes of the Act)
-### Quotations from the court:
-"The object and purpose of the Act is to provide free and compulsory elementary education to all children of the age of 6-14 years and to achieve the goal of Universal Elementary Education for strengthening the social fabric of our society." (para 21)
-### Judgement:
-The Supreme Court, by a 3:2 majority, upheld the constitutional validity of Section 12 (1)(c) of the RTE Act, 2009, and directed the State Governments to constitute the State Advisory Councils and frame the necessary guidelines and rules within six months.
-### Conclusion:
-The Supreme Court's decision upholds the constitutional validity of the provision, emphasizing the importance of providing free and compulsory education to all children. The decision may have far-reaching implications for private unaided schools in India, requiring them to implement the 25% reservation policy for disadvantaged children.
+**The Supreme Court of India held that the Right to Education Act, 2009, is not applicable to private unaided educational institutions and that the right to education is a fundamental right guaranteed under Article 21A of the Constitution of India. The Court also observed that Section 12(1)(c) of the RTE Act is unconstitutional and violative of Articles 19(1)(g) and 26 of the Constitution of India.**
