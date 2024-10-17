@@ -69,7 +69,8 @@ def getDate(date_str):
 def createPDF(case, language, content):
 	# Define the filename for the PDF
 	pdf_filename = f"{case}_{language}.pdf"
-	pdf_path = os.path.join(settings.MEDIA_ROOT, "pdfs", pdf_filename)
+	
+	pdf_path = os.path.join(os.getcwd(), "pdfs", pdf_filename)
 	if os.path.exists(pdf_path):
 		os.remove(pdf_path)
 
@@ -81,23 +82,23 @@ def createPDF(case, language, content):
 	pdf.add_page()
 
 	# Register and set the font based on the language
-	pdf.add_font('NotoSerifBold', '', os.path.join(settings.MEDIA_ROOT, "fonts", 'NotoSerif-Bold.ttf'), uni=True)
+	pdf.add_font('NotoSerifBold', '', os.path.join(os.path.join(settings.MEDIA_ROOT), "fonts", 'NotoSerif-Bold.ttf'), uni=True)
 	if language == 'English':
 		# Set the English font
-		pdf.add_font('NotoSerif', '', os.path.join(settings.MEDIA_ROOT, "fonts", 'NotoSerif-Regular.ttf'), uni=True)
+		pdf.add_font('NotoSerif', '', os.path.join(os.path.join(settings.MEDIA_ROOT), "fonts", 'NotoSerif-Regular.ttf'), uni=True)
 		pdf.set_font('NotoSerif', '', 12)
 		f='NotoSerif'
 		sep = "."
 	elif language in ['Bengali','Manipuri','Assamese']:
 		# Set the Bengali font
-		pdf.add_font('NotoSansBengali', '', os.path.join(settings.MEDIA_ROOT, "fonts", 'NotoSansBengali-Regular.ttf'), uni=True)
+		pdf.add_font('NotoSansBengali', '', os.path.join(os.path.join(settings.MEDIA_ROOT), "fonts", 'NotoSansBengali-Regular.ttf'), uni=True)
 		# pdf.add_font('NotoSansBengali', '', os.path.join(settings.MEDIA_ROOT, "fonts", 'NotoSansBengali-Regular.ttf'), uni=True)
 		pdf.set_font('NotoSansBengali', '', 12)
 		f='NotoSansBengali'
 		sep = "|"
 	elif language in ['Hindi','Bodo','Nepali']:
 		# Set the Hindi font
-		pdf.add_font('NotoSansDevanagari', '', os.path.join(settings.MEDIA_ROOT, "fonts", 'NotoSansDevanagari-Regular.ttf'), uni=True)
+		pdf.add_font('NotoSansDevanagari', '', os.path.join(os.path.join(settings.MEDIA_ROOT), "fonts", 'NotoSansDevanagari-Regular.ttf'), uni=True)
 		pdf.set_font('NotoSansDevanagari', '', 12)
 		f='NotoSansDevanagari'
 		sep = "|"
@@ -124,6 +125,7 @@ def createPDF(case, language, content):
 
 	# Return the path to the PDF
 	return pdf_filename
+
 
 # def createPDF(case,language,content):
 # 	# Define the filename for the PDF
@@ -244,17 +246,17 @@ cases={
 "MANU_SC_1985_0039":"Bombay High Court and Supreme Court Judgments on Right to Life and Livelihood",
 "MANU_SC_1986_0716":"K.P. Joseph v. State of Kerala & Ors.",
 "MANU_SC_1993_0333":"TMA Pai Foundation vs. State of Karnataka and Ors. ( implications on Education Regulation and Affiliation)",
-"MANU_SC_1995_0290":"Mohamed Ahmed Khan v. Shah Bano Begum and others",
-"MANU_SC_1997_0157":"Nilabati Behera vs. State of Orissa (1993) and various other cases",
+# "MANU_SC_1995_0290":"Mohamed Ahmed Khan v. Shah Bano Begum and others",
+# "MANU_SC_1997_0157":"Nilabati Behera vs. State of Orissa (1993) and various other cases",
 "MANU_SC_1997_0261":"Tribunals' Competence to Test Constitutional Validity of Statutory Provisions/Rules",
 "MANU_SC_2002_0189":"State of Punjab v. Span Motels Pvt. Ltd",
 "MANU_SC_2002_0394":"Election Commission of India v. Subramanian Swamy",
 "MANU_SC_2002_1141":"Lawyers' Right to Strike: Supreme Court of India",
-"MANU_SC_2006_0399":"President of India & Ors v. Speaker, Bihar Legislative Assembly & Ors.",
+# "MANU_SC_2006_0399":"President of India & Ors v. Speaker, Bihar Legislative Assembly & Ors.",
 "MANU_SC_2008_3096":"State of Maharashtra v. Bombay High Court",
 "MANU_SC_2010_0325":"Supreme Court of India vs. Narcoanalysis, Polygraph Examination, and Brain Electro-Stimulation (BEAP) Test",
 "MANU_SC_2011_0176":"Aruna Shanbaug's Right to Die with Dignity",
-"MANU_SC_2012_0311":"Supreme Court of India vs. Unaided Private Schools",      
+# "MANU_SC_2012_0311":"Supreme Court of India vs. Unaided Private Schools",      
 "MANU_SC_2015_0329":"Shreya Singhal v. Union of India (2015) 10 SCC 459"}
 import re
 
