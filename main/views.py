@@ -70,7 +70,7 @@ def createPDF(case, language, content):
 	# Define the filename for the PDF
 	pdf_filename = f"{case}_{language}.pdf"
 	
-	pdf_path = os.path.join(os.getcwd(), "pdfs", pdf_filename)
+	pdf_path = os.path.join(os.getcwd(),"media", "pdfs", pdf_filename)
 	if os.path.exists(pdf_path):
 		os.remove(pdf_path)
 
